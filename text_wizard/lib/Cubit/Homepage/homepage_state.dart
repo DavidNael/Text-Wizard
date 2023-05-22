@@ -2,4 +2,4 @@
 abstract class HomepageStates {}
 
 // App initial states
-class AppInitialState extends HomepageStates {}
+class HomepageInitialState extends HomepageStates {}

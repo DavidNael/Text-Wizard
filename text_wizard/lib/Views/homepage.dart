@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:text_wizard/Cubit/Homepage/homepage_cubit.dart';
-import 'package:text_wizard/Cubit/Homepage/homepage_states.dart';
-import 'package:text_wizard/Views/random_word.dart';
 import 'package:text_wizard/Widgets/ui_widgets.dart';
+import 'package:text_wizard/Views/word_generator.dart';
+import 'package:text_wizard/Views/password_generator.dart';
+import 'package:text_wizard/Views/sentence_generator.dart';
+import 'package:text_wizard/Cubit/Homepage/homepage_cubit.dart';
+import 'package:text_wizard/Cubit/Homepage/homepage_state.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -25,16 +27,7 @@ class HomePage extends StatelessWidget {
                 height: 300,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.blue.withAlpha(150),
-                      Colors.indigo.shade400,
-                      Colors.indigo.shade600,
-                      Colors.indigo.shade800,
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  gradient: customLinearGradient(),
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20),
@@ -57,7 +50,6 @@ class HomePage extends StatelessWidget {
                           alignment: Alignment.topLeft,
                           child: Builder(
                             builder: (context) {
-
                               return customIconWidget(
                                 color: Colors.white,
                                 icon: Icons.menu,
@@ -78,13 +70,14 @@ class HomePage extends StatelessWidget {
                               Container(
                                 padding: const EdgeInsets.all(10.0),
                                 child: const CircleAvatar(
-                                    radius: 50,
-                                    backgroundColor: Colors.white,
-                                    child: Icon(
-                                      Icons.person,
-                                      size: 90,
-                                      color: Colors.blue,
-                                    )),
+                                  radius: 50,
+                                  backgroundColor: Colors.white,
+                                  child: Icon(
+                                    Icons.person,
+                                    size: 90,
+                                    color: Colors.blue,
+                                  ),
+                                ),
                               ),
                               //1 Username
                               const Column(
@@ -125,63 +118,63 @@ class HomePage extends StatelessWidget {
                       title: "Word Generator",
                       color: Colors.blue,
                       icon: Icons.numbers,
-                      navigatePage: const RandomWordPage(),
+                      navigatePage: const WordGeneratorPage(),
                     ),
                     homeIcon(
                       context: context,
                       title: "Sentence Generator",
                       color: Colors.green.shade800,
                       icon: Icons.numbers,
-                      navigatePage: const RandomWordPage(),
+                      navigatePage: const SentenceGeneratorPage(),
                     ),
                     homeIcon(
                       context: context,
                       title: "Password Generator",
                       color: Colors.red,
                       icon: Icons.password,
-                      navigatePage: const RandomWordPage(),
+                      navigatePage: const PasswordGeneratorPage(),
                     ),
                     homeIcon(
                       context: context,
                       title: "Name Generator",
                       color: Colors.pink,
                       icon: Icons.abc,
-                      navigatePage: const RandomWordPage(),
+                      navigatePage: const WordGeneratorPage(),
                     ),
                     homeIcon(
                       context: context,
                       title: "Language Translation",
                       color: Colors.orange,
                       icon: Icons.translate,
-                      navigatePage: const RandomWordPage(),
+                      navigatePage: const WordGeneratorPage(),
                     ),
                     homeIcon(
                       context: context,
                       title: "Anagram Generator", //1 Example: Dog->God
                       color: Colors.blue.shade900,
                       icon: Icons.factory,
-                      navigatePage: const RandomWordPage(),
+                      navigatePage: const WordGeneratorPage(),
                     ),
                     homeIcon(
                       context: context,
                       title: "Emoji Search",
                       color: Colors.teal.shade800,
                       icon: Icons.emoji_emotions,
-                      navigatePage: const RandomWordPage(),
+                      navigatePage: const WordGeneratorPage(),
                     ),
                     homeIcon(
                       context: context,
                       title: "Case Converter",
                       color: Colors.deepPurple.shade700,
                       icon: Icons.text_fields,
-                      navigatePage: const RandomWordPage(),
+                      navigatePage: const WordGeneratorPage(),
                     ),
                     homeIcon(
                       context: context,
                       title: "Unicode Converter",
                       color: Colors.grey.shade800,
                       icon: Icons.text_increase,
-                      navigatePage: const RandomWordPage(),
+                      navigatePage: const WordGeneratorPage(),
                     ),
                   ],
                 ),
