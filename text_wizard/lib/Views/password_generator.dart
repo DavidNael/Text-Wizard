@@ -8,11 +8,11 @@ class PasswordGeneratorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
+    // final formKey = GlobalKey<FormState>();
     return BlocConsumer<PasswordGeneratorCubit, PasswordGeneratorState>(
       listener: (context, state) {},
       builder: (context, state) {
-        BuildContext mainContext = context;
+        // BuildContext mainContext = context;
         final cubit = PasswordGeneratorCubit.getCubit(context);
         return Scaffold(
           appBar: AppBar(
@@ -38,14 +38,21 @@ class PasswordGeneratorPage extends StatelessWidget {
               child: Form(
                 child: Column(
                   children: [
-                    //1 Password Length
+                    //1  Result Box
+                    customResultBox(
+                      title: "Generated Password: ",
+                      result: "nbgjlwns*Gw48fqf@r98hg21564##15#qr123r4661",
+                    ),
+                    // 1 Password Length
                     customSlider(
                       title: "Password Length: ${cubit.sliderValue.toInt()}",
                       value: cubit.sliderValue,
                       onChanged: (newValue) {
                         cubit.changeSlider(newValue: newValue.roundToDouble());
                       },
+                      verticalPadding: 20,
                     ),
+                    // 1 Include Numbers
                     customCheckbox(
                       text: "Include Numbers",
                       isActive: cubit.options[0],
@@ -53,6 +60,8 @@ class PasswordGeneratorPage extends StatelessWidget {
                         cubit.changeOptionType(optionNumber: 0);
                       },
                     ),
+
+                    // 1 Include Capital Letters
                     customCheckbox(
                       text: "Include Capital Characters",
                       isActive: cubit.options[1],
@@ -60,6 +69,8 @@ class PasswordGeneratorPage extends StatelessWidget {
                         cubit.changeOptionType(optionNumber: 1);
                       },
                     ),
+
+                    // 1 Include Special Letters
                     customCheckbox(
                       text: "Include Special Characters",
                       isActive: cubit.options[2],
@@ -67,6 +78,7 @@ class PasswordGeneratorPage extends StatelessWidget {
                         cubit.changeOptionType(optionNumber: 2);
                       },
                     ),
+
                     //1 Confirmation Button
                     customMaterialButton(
                       text: "Generate",
@@ -82,25 +94,27 @@ class PasswordGeneratorPage extends StatelessWidget {
                     ),
 
                     // 1 Results
-                    Container(
-                      decoration: customBoxDecoration(
-                        hasBorder: true,
-                        borderWidth: 0.5,
-                        borderColor: Colors.grey.withAlpha(100),
-                      ),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 50,
-                        itemBuilder: (context, index) {
-                          return Text("Placeholder $index");
-                          // customMaterialButton(
-                          //   text: "PlaceHolder $index",
-                          //   onPressed: () {},
-                          // );
-                        },
-                      ),
-                    ),
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //     border: Border.all(
+                    //       width: 0.5,
+                    //       color: Colors.grey.withAlpha(100),
+                    //     ),
+                    //     borderRadius: BorderRadius.circular(10),
+                    //   ),
+                    //   child: ListView.builder(
+                    //     shrinkWrap: true,
+                    //     physics: const NeverScrollableScrollPhysics(),
+                    //     itemCount: 50,
+                    //     itemBuilder: (context, index) {
+                    //       return Text("Placeholder $index");
+                    //       // customMaterialButton(
+                    //       //   text: "PlaceHolder $index",
+                    //       //   onPressed: () {},
+                    //       // );
+                    //     },
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

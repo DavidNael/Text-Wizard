@@ -8,11 +8,9 @@ class SentenceGeneratorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
     return BlocConsumer<SentenceGeneratorCubit, SentenceGeneratorState>(
       listener: (context, state) {},
       builder: (context, state) {
-        BuildContext mainContext = context;
         final cubit = SentenceGeneratorCubit.getCubit(context);
         return Scaffold(
           backgroundColor: Colors.grey.shade300,

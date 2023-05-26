@@ -9,7 +9,6 @@ class WordGeneratorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
     TextEditingController startWithController = TextEditingController();
     TextEditingController endWithController = TextEditingController();
     FocusNode startWithFocusNode = FocusNode();
@@ -37,7 +36,6 @@ class WordGeneratorPage extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        BuildContext mainContext = context;
         final cubit = WordGeneratorCubit.getCubit(context);
         return Scaffold(
           backgroundColor: Colors.grey.shade300,

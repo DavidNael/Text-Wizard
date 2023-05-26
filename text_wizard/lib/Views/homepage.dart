@@ -1,4 +1,4 @@
-import 'password_generator copy.dart';
+import 'password_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:text_wizard/Components/ui_widgets.dart';
@@ -127,7 +127,7 @@ class HomePage extends StatelessWidget {
                       title: "Password Generator",
                       color: Colors.red,
                       icon: Icons.password,
-                      navigatePage: const PasswordGenerator2Page(),
+                      navigatePage: const PasswordGeneratorPage(),
                     ),
                     homeIcon(
                       context: context,
