@@ -1,8 +1,8 @@
+import 'password_generator copy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:text_wizard/Widgets/ui_widgets.dart';
+import 'package:text_wizard/Components/ui_widgets.dart';
 import 'package:text_wizard/Views/word_generator.dart';
-import 'package:text_wizard/Views/password_generator.dart';
 import 'package:text_wizard/Views/sentence_generator.dart';
 import 'package:text_wizard/Cubit/Homepage/homepage_cubit.dart';
 import 'package:text_wizard/Cubit/Homepage/homepage_state.dart';
@@ -26,19 +26,14 @@ class HomePage extends StatelessWidget {
               Container(
                 height: 300,
                 width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: customLinearGradient(),
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
-                  boxShadow: const [
-                    BoxShadow(
-                      blurRadius: 20,
-                      color: Colors.grey,
-                      spreadRadius: 20,
-                    )
-                  ],
+                decoration: customBoxDecoration(
+                  boxBottomLeftBorderRadius: 20,
+                  boxBottomRightBorderRadius: 20,
+                  hasShadow: true,
+                  shadowBlurRadius: 20,
+                  shadowSpreadRadius: 20,
+                  shadowColor: Colors.grey,
+                  hasGradient: true,
                 ),
                 child: SafeArea(
                   child: Padding(
@@ -132,7 +127,7 @@ class HomePage extends StatelessWidget {
                       title: "Password Generator",
                       color: Colors.red,
                       icon: Icons.password,
-                      navigatePage: const PasswordGeneratorPage(),
+                      navigatePage: const PasswordGenerator2Page(),
                     ),
                     homeIcon(
                       context: context,

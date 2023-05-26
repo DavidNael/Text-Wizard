@@ -7,5 +7,8 @@ class WordGeneratorInitialState extends WordGeneratorState {}
 class WordGeneratorOptionChange extends WordGeneratorState {}
 
 class WordGeneratorGeneratingWords extends WordGeneratorState {}
+class WordGeneratorFinishedGeneratingWords extends WordGeneratorState {}
 
-class WordGeneratorGeneratedWords extends WordGeneratorState {}
+class WordGeneratorGeneratedNoWords extends WordGeneratorState {}
+class WordGeneratorGeneratedFewWords extends WordGeneratorState {}
+class WordGeneratorGeneratedAllWords extends WordGeneratorState {}
