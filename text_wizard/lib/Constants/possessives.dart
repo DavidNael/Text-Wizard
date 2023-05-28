@@ -1,4 +1,4 @@
-List<String> allPossessive = [
+const List<String> allPossessive = [
   'my',
   'your',
   'his',

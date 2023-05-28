@@ -1,4 +1,6 @@
-List<String> allAdverbs = [
+final List<String> allAdverbs = safeAdverbWords + unsafeAdverbWords;
+
+const List<String> safeAdverbWords = [
   "well",
   "away",
   "around",
@@ -3619,4 +3621,10 @@ List<String> allAdverbs = [
   "ulteriorly",
   "vexatiously",
   "wrongfully"
+];
+
+const List<String> unsafeAdverbWords = [
+  "bareback",
+  "fucking",
+  "sexually",
 ];

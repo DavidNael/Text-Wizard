@@ -9,6 +9,7 @@ class SentenceGeneratorCubit extends Cubit<SentenceGeneratorState> {
   int wordTypeValue = 0;
   double sentenceWordsSliderValue = 1;
   double sentenceLinesSliderValue = 1;
+  List<bool> checkboxOptions = [false, false, false];
   String sentence = "";
   void changeWordType({required int newValue}) {
     wordTypeValue = newValue;
@@ -24,6 +25,11 @@ class SentenceGeneratorCubit extends Cubit<SentenceGeneratorState> {
     emit(SentenceGeneratorOptionChange());
   }
 
+  void changeCheckBoxType({required int optionNumber}) {
+    checkboxOptions[optionNumber] = !checkboxOptions[optionNumber];
+    emit(SentenceGeneratorOptionChange());
+  }
+
   void generateSentence({
     int wordType = 0,
     int sentenceLength = 1,
@@ -34,6 +40,7 @@ class SentenceGeneratorCubit extends Cubit<SentenceGeneratorState> {
       wordType: wordType,
       sentenceLength: sentenceLength,
       sentenceLines: sentenceLines,
+      isSafeSearch: checkboxOptions[0],
     );
     emit(SentenceGeneratorFinishedGeneratingSentence());
   }

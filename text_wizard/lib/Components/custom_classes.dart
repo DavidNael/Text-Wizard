@@ -13,37 +13,38 @@ class CustomWordGenerator {
     int wordCount = 1,
     int wordType = 0,
     int wordLength = 0,
+    bool isSafeSearch = false,
   }) {
     List<String> words = [];
     List<String> results = [];
-    // Filter words based on wordType condition
+    // 1 Filter words based on wordType and Safe Word Search conditions
     switch (wordType) {
       // 1 All Words
       case 0:
-        words = allWords.toSet().toList();
+        words = isSafeSearch ? allSafeWords : allWords.toSet().toList();
         break;
       // 2 Nouns
       case 1:
-        words = allNouns.toSet().toList();
+        words = isSafeSearch ? safeNounWords : allNouns.toSet().toList();
         break;
       // 3 Adjectives
       case 2: // Nouns
-        words = allAdjectives.toSet().toList();
+        words =
+            isSafeSearch ? safeAdjectiveWords : allAdjectives.toSet().toList();
         break;
       // 4 Verbs
       case 3:
-        words = allVerbs.toSet().toList();
+        words = isSafeSearch ? safeVerbWords : allVerbs.toSet().toList();
         break;
       // 5 Adverbs
       case 4:
-        words = allAdverbs.toSet().toList();
+        words = isSafeSearch ? safeAdverbWords : allAdverbs.toSet().toList();
         break;
       // Add more cases for other word types if needed
       default:
-        words = allWords.toSet().toList();
+        words = isSafeSearch ? allSafeWords : allWords.toSet().toList();
         break;
     }
-
     // 1 Filter words based on conditions
     if (startWith.isNotEmpty || endsWith.isNotEmpty || wordLength != 0) {
       words = words.where((word) {
@@ -73,34 +74,36 @@ class CustomWordGenerator {
     int wordType = 0,
     int sentenceLength = 1,
     int sentenceLines = 1,
+    bool isSafeSearch = false,
   }) {
     List<String> words = [];
     String result = "";
-    // Filter words based on wordType condition
+    // 1 Filter words based on wordType and Safe Word Search conditions
     switch (wordType) {
       // 1 All Words
       case 0:
-        words = allWords.toSet().toList();
+        words = isSafeSearch ? allSafeWords : allWords.toSet().toList();
         break;
       // 2 Nouns
       case 1:
-        words = allNouns.toSet().toList();
+        words = isSafeSearch ? safeNounWords : allNouns.toSet().toList();
         break;
       // 3 Adjectives
       case 2: // Nouns
-        words = allAdjectives.toSet().toList();
+        words =
+            isSafeSearch ? safeAdjectiveWords : allAdjectives.toSet().toList();
         break;
       // 4 Verbs
       case 3:
-        words = allVerbs.toSet().toList();
+        words = isSafeSearch ? safeVerbWords : allVerbs.toSet().toList();
         break;
       // 5 Adverbs
       case 4:
-        words = allAdverbs.toSet().toList();
+        words = isSafeSearch ? safeAdverbWords : allAdverbs.toSet().toList();
         break;
       // Add more cases for other word types if needed
       default:
-        words = allWords.toSet().toList();
+        words = isSafeSearch ? allSafeWords : allWords.toSet().toList();
         break;
     }
     // 1 Filter Sentence based on conditions

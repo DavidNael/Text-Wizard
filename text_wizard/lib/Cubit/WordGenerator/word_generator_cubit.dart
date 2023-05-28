@@ -10,6 +10,7 @@ class WordGeneratorCubit extends Cubit<WordGeneratorState> {
   double wordCountSlider = 1;
   double wordLengthSlider = 0;
   List<String> words = [];
+  List<bool> checkboxOptions = [false, false, false];
   void changeWordType({required int newValue}) {
     wordTypeValue = newValue;
     emit(WordGeneratorOptionChange());
@@ -35,6 +36,7 @@ class WordGeneratorCubit extends Cubit<WordGeneratorState> {
       wordCount: wordCountSlider.toInt(),
       wordLength: wordLengthSlider.toInt(),
       wordType: wordTypeValue,
+      isSafeSearch: checkboxOptions[0],
     );
     emit(WordGeneratorFinishedGeneratingWords());
     if (words.isEmpty) {
@@ -46,5 +48,10 @@ class WordGeneratorCubit extends Cubit<WordGeneratorState> {
       return;
     }
     emit(WordGeneratorGeneratedAllWords());
+  }
+
+  void changeCheckBoxType({required int optionNumber}) {
+    checkboxOptions[optionNumber] = !checkboxOptions[optionNumber];
+    emit(WordGeneratorOptionChange());
   }
 }
