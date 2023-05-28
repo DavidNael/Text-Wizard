@@ -286,12 +286,13 @@ Widget customTextFormField({
   double? height,
   double borderFocusedRadius = 10,
   double borderFocusedWidth = 0,
-  double padding = 10,
+  double verticalPadding = 0,
+  double horizontalPadding = 0,
   TextEditingController? controller,
   FocusNode? focusNode,
   TextInputType keyboardType = TextInputType.text,
 
-  // 2 Border Settings
+  // 1 Border Settings
   bool hasBorder = true,
   double? boxBorderRadius,
   double borderWidth = 0,
@@ -301,7 +302,7 @@ Widget customTextFormField({
   double boxBottomRightBorderRadius = 10,
   Color borderColor = Colors.transparent,
 
-  // 3 Shadow Settings
+  // 2 Shadow Settings
   bool hasShadow = false,
   Color shadowColor = Colors.grey,
   Offset shadowOffset = const Offset(0, 2),
@@ -310,11 +311,16 @@ Widget customTextFormField({
   double shadowSpreadRadius = 0.3,
 }) {
   return Padding(
-    padding: EdgeInsets.all(padding),
+    padding: EdgeInsets.symmetric(
+        vertical: verticalPadding, horizontal: horizontalPadding),
     child: Container(
       width: width,
       height: height,
       decoration: customBoxDecoration(
+        boxTopLeftBorderRadius: boxTopLeftBorderRadius,
+        boxTopRightBorderRadius: boxTopRightBorderRadius,
+        boxBottomLeftBorderRadius: boxBottomLeftBorderRadius,
+        boxBottomRightBorderRadius: boxBottomRightBorderRadius,
         hasShadow: hasShadow,
         shadowAlphaColor: shadowAlphaColor,
         shadowBlurRadius: shadowBlurRadius,
@@ -432,35 +438,83 @@ Widget customElevatedButton({
 }
 
 Widget customMaterialButton({
-  required String text,
+  String text = "",
   double? width,
-  double? height,
-  double padding = 10,
+  double? height = 60,
+  double horizontalPadding = 0,
+  double verticalPadding = 0,
   double fontSize = 15,
   Color buttonColor = Colors.blue,
   Color textColor = Colors.white,
+
+  // 1 Box Settings
+  BoxShape boxShape = BoxShape.rectangle,
+  Color boxColor = Colors.white,
+  double? boxBorderRadius,
+  double boxTopLeftBorderRadius = 10,
+  double boxTopRightBorderRadius = 10,
+  double boxBottomLeftBorderRadius = 10,
+  double boxBottomRightBorderRadius = 10,
+
+  // 2 Gradient Settings
   bool hasGradient = false,
   List<Color> gradientColors = const [],
   AlignmentGeometry gradientBegin = Alignment.topLeft,
   AlignmentGeometry gradientEnd = Alignment.bottomRight,
-  required VoidCallback onPressed,
+  VoidCallback? onPressed,
+
+  // 3 Border Settings
+  bool hasBorder = true,
+  double borderWidth = 0,
+  Color borderColor = Colors.transparent,
+
+  // 3 Shadow Settings
+  bool hasShadow = false,
+  Color shadowColor = Colors.grey,
+  Offset shadowOffset = const Offset(0, 2),
+  int shadowAlphaColor = 255,
+  double shadowBlurRadius = 10,
+  double shadowSpreadRadius = 0.3,
 }) {
   return Padding(
-    padding: EdgeInsets.all(padding),
+    padding: EdgeInsets.symmetric(
+      vertical: verticalPadding,
+      horizontal: horizontalPadding,
+    ),
     child: Container(
-      // width: 100,
-      height: 60,
+      width: width,
+      height: height,
       decoration: customBoxDecoration(
-        hasGradient: true,
+        boxShape: boxShape,
+        boxColor: boxColor,
+        boxBorderRadius: boxBorderRadius,
+        boxTopLeftBorderRadius: boxTopLeftBorderRadius,
+        boxTopRightBorderRadius: boxTopRightBorderRadius,
+        boxBottomLeftBorderRadius: boxBottomLeftBorderRadius,
+        boxBottomRightBorderRadius: boxBottomRightBorderRadius,
+        hasGradient: hasGradient,
         gradientBegin: gradientBegin,
         gradientEnd: gradientEnd,
         gradientColors: gradientColors,
-        hasBorder: true,
+        hasBorder: hasBorder,
+        borderWidth: borderWidth,
+        borderColor: borderColor,
+        hasShadow: hasShadow,
+        shadowColor: shadowColor,
+        shadowOffset: shadowOffset,
+        shadowAlphaColor: shadowAlphaColor,
+        shadowBlurRadius: shadowBlurRadius,
+        shadowSpreadRadius: shadowSpreadRadius,
       ),
       child: MaterialButton(
         onPressed: onPressed,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(boxTopLeftBorderRadius),
+          topRight: Radius.circular(boxTopRightBorderRadius),
+          bottomLeft: Radius.circular(boxBottomLeftBorderRadius),
+          bottomRight: Radius.circular(boxBottomRightBorderRadius),
+        )),
         padding: const EdgeInsets.symmetric(horizontal: 20),
         color: hasGradient ? Colors.transparent : buttonColor,
         child: Text(
@@ -525,11 +579,25 @@ Widget customSlider({
   double maxValue = 50,
   double verticalPadding = 0,
   double horizontalPadding = 0,
-  bool hasBorder = true,
-  double borderWidth = 0.9,
-  Color borderColor = Colors.grey,
   void Function(double)? onChanged,
   Color activeCheckboxColor = Colors.blue,
+  // 2 Border Settings
+  bool hasBorder = true,
+  double? boxBorderRadius,
+  double borderWidth = 0.9,
+  double boxTopLeftBorderRadius = 10,
+  double boxTopRightBorderRadius = 10,
+  double boxBottomLeftBorderRadius = 10,
+  double boxBottomRightBorderRadius = 10,
+  Color borderColor = Colors.grey,
+
+  // 3 Shadow Settings
+  bool hasShadow = false,
+  Color shadowColor = Colors.grey,
+  Offset shadowOffset = const Offset(0, 2),
+  int shadowAlphaColor = 255,
+  double shadowBlurRadius = 10,
+  double shadowSpreadRadius = 0.3,
 }) {
   return Padding(
     padding: EdgeInsets.symmetric(
@@ -538,7 +606,7 @@ Widget customSlider({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
           child: Text(
             title,
             style: const TextStyle(
@@ -548,10 +616,13 @@ Widget customSlider({
         ),
         Container(
           decoration: customBoxDecoration(
-            boxTopLeftBorderRadius: 10,
-            hasBorder: true,
-            borderWidth: 0.9,
-            borderColor: Colors.grey.shade500.withAlpha(190),
+            boxTopLeftBorderRadius: boxTopLeftBorderRadius,
+            boxTopRightBorderRadius: boxTopRightBorderRadius,
+            boxBottomLeftBorderRadius: boxBottomLeftBorderRadius,
+            boxBottomRightBorderRadius: boxBottomRightBorderRadius,
+            hasBorder: hasBorder,
+            borderWidth: borderWidth,
+            borderColor: borderColor,
           ),
           child: Slider(
             value: value,

@@ -1,10 +1,15 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:text_wizard/Constants/adjectives.dart';
 import 'package:text_wizard/Constants/all_words.dart';
 import 'package:text_wizard/Constants/nouns.dart';
 import 'package:text_wizard/Constants/verbs.dart';
+
+import '../Constants/adverbs.dart';
 
 List<String> wordGenerator({
   String startWith = "",
@@ -32,6 +37,10 @@ List<String> wordGenerator({
     // 4 Verbs
     case 3:
       words = allVerbs.toSet().toList();
+      break;
+    // 5 Adverbs
+    case 4:
+      words = allAdverbs.toSet().toList();
       break;
     // Add more cases for other word types if needed
     default:
@@ -143,4 +152,41 @@ Future<dynamic> customLoadingDialog({
       );
     },
   );
+}
+
+void copyToClipboard({String text = ""}) {
+  if (text.isEmpty) {
+    Fluttertoast.showToast(
+      msg: "No Words to copy.",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      fontSize: 16.0,
+    );
+    return;
+  }
+  Clipboard.setData(
+    ClipboardData(
+      text: text,
+    ),
+  );
+  Fluttertoast.showToast(
+    msg: "Copied to clipboard.",
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 1,
+    fontSize: 16.0,
+  );
+}
+
+void shareText({String text = ""}) {
+  text.isEmpty
+      ? Fluttertoast.showToast(
+          msg: "No Words to share.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0,
+        )
+      : Share.share(text);
 }

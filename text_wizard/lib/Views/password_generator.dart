@@ -78,12 +78,11 @@ class PasswordGeneratorPage extends StatelessWidget {
                         cubit.changeOptionType(optionNumber: 2);
                       },
                     ),
-
                     //1 Confirmation Button
                     customMaterialButton(
                       text: "Generate",
                       onPressed: () {},
-                      padding: 20,
+                      // padding: 20,
                       hasGradient: true,
                       gradientColors: [
                         Colors.blue,

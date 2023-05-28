@@ -51,6 +51,7 @@ dependencies:
   bloc_provider: ^1.0.0
   word_generator: ^0.4.3
   english_words: ^4.0.0
+  share_plus: ^7.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

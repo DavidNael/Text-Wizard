@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BuildContext mainContext = context;
+    BuildContext mainContext = context; 
     return BlocConsumer<HomepageCubit, HomepageStates>(
       listener: (context, state) {},
       builder: (context, state) {

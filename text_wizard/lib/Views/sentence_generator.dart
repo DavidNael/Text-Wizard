@@ -91,7 +91,7 @@ class SentenceGeneratorPage extends StatelessWidget {
                         customMaterialButton(
                           text: "Generate",
                           onPressed: () {},
-                          padding: 20,
+                          // padding: 20,
                           hasGradient: true,
                           gradientColors: [
                             Colors.blue,

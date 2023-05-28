@@ -1,4 +1,7 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:text_wizard/Components/functions.dart';
 
 part 'word_generator_state.dart';
@@ -47,4 +50,6 @@ class WordGeneratorCubit extends Cubit<WordGeneratorState> {
     }
     emit(WordGeneratorGeneratedAllWords());
   }
+
+
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:text_wizard/Components/functions.dart';
 import 'package:text_wizard/Components/ui_widgets.dart';
 import 'package:text_wizard/Cubit/WordGenerator/word_generator_cubit.dart';
@@ -23,16 +24,22 @@ class WordGeneratorPage extends StatelessWidget {
           Navigator.pop(context);
         }
         if (state is WordGeneratorGeneratedFewWords) {
-          customShowDialog(
-              context: context,
-              title: "Insufficient Words",
-              content: "Couldn't generate all words with these modifiers.");
+          Fluttertoast.showToast(
+            msg: "Couldn't generate all words.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            fontSize: 16.0,
+          );
         }
         if (state is WordGeneratorGeneratedNoWords) {
-          customShowDialog(
-              context: context,
-              title: "No Words",
-              content: "Couldn't generate words with these modifiers.");
+          Fluttertoast.showToast(
+            msg: "No words available.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            fontSize: 16.0,
+          );
         }
       },
       builder: (context, state) {
@@ -57,7 +64,7 @@ class WordGeneratorPage extends StatelessWidget {
           ),
           body: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               child: GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
@@ -67,265 +74,306 @@ class WordGeneratorPage extends StatelessWidget {
                 child: Form(
                   child: Column(
                     children: [
+                      //1 Results Container
                       Container(
+                        height: 200,
                         decoration: customBoxDecoration(
+                          boxTopLeftBorderRadius: 25,
+                          boxBottomRightBorderRadius: 25,
+                          hasBorder: true,
+                          borderWidth: 0.5,
+                          borderColor: Colors.grey.withAlpha(100),
                           hasShadow: true,
                           shadowAlphaColor: 150,
                           shadowBlurRadius: 0.1,
                           shadowOffset: const Offset(3, 2),
                         ),
-                        padding: const EdgeInsets.only(top: 15),
+                        padding: const EdgeInsets.all(10),
                         child: Column(
                           children: [
-                            //1 Begin - End Of Word Fields
+                            // 2 Container Header Row
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Expanded(
-                                  child: customTextFormField(
-                                    controller: startWithController,
-                                    focusNode: startWithFocusNode,
-                                    label: "Start With",
-                                    borderWidth: 0.5,
-                                    borderColor: Colors.black.withAlpha(150),
-                                    borderFocusedWidth: 0.5,
-                                    focusBorderColor:
-                                        Colors.black.withAlpha(150),
-                                    hasShadow: true,
-                                    shadowAlphaColor: 150,
-                                    shadowBlurRadius: 0.1,
+                                // Results Text
+                                const Expanded(
+                                  child: Text(
+                                    "Results:",
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
                                   ),
                                 ),
-                                Expanded(
-                                  child: customTextFormField(
-                                    controller: endWithController,
-                                    focusNode: endWithFocusNode,
-                                    label: "End With",
-                                    borderWidth: 0.5,
-                                    borderColor: Colors.black.withAlpha(150),
-                                    borderFocusedWidth: 0.5,
-                                    focusBorderColor:
-                                        Colors.black.withAlpha(150),
-                                    hasShadow: true,
-                                    shadowAlphaColor: 150,
-                                    shadowBlurRadius: 0.1,
-                                  ),
-                                ),
-                              ],
-                            ),
-
-                            //1 Length - Count Of Word Fields
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Expanded(
-                                  child: customSlider(
-                                    borderColor:
-                                        Colors.grey.shade500.withAlpha(190),
-                                    title:
-                                        "Word Length: ${cubit.wordLengthSlider.toInt()}",
-                                    value: cubit.wordLengthSlider,
-                                    onChanged: (newValue) {
-                                      cubit.changeSlider(
-                                        newValue: newValue.roundToDouble(),
-                                        sliderCount: 0,
+                                // Copy To Clipboard Button
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      copyToClipboard(
+                                        text: cubit.words.join("\n"),
                                       );
                                     },
-                                    verticalPadding: 10,
-                                    horizontalPadding: 10,
-                                    minValue: 0,
+                                    icon: const Icon(
+                                      Icons.copy,
+                                      size: 30,
+                                    ),
                                   ),
                                 ),
-                                Expanded(
-                                  child: customSlider(
-                                    borderColor:
-                                        Colors.grey.shade500.withAlpha(190),
-                                    title:
-                                        "Word Count: ${cubit.wordCountSlider.toInt()}",
-                                    value: cubit.wordCountSlider,
-                                    onChanged: (newValue) {
-                                      cubit.changeSlider(
-                                        newValue: newValue.roundToDouble(),
-                                        sliderCount: 1,
+                                // Share Button
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      shareText(
+                                        text: cubit.words.join("\n"),
                                       );
                                     },
-                                    verticalPadding: 10,
-                                    horizontalPadding: 10,
-                                    maxValue: 300,
+                                    icon: const Icon(
+                                      Icons.share,
+                                      size: 30,
+                                    ),
                                   ),
-                                  //          customTextFormField(
-                                  //           controller: wordCountController,
-                                  //           label: "Word Count",
-                                  //           keyboardType:
-                                  //               const TextInputType.numberWithOptions(
-                                  //             signed: false,
-                                  //             decimal: false,
-                                  //           ),
-                                  //           borderWidth: 0.5,
-                                  //           borderColor: Colors.black.withAlpha(150),
-                                  //           borderFocusedWidth: 0.5,
-                                  //           focusBorderColor: Colors.black.withAlpha(150),
-                                  //           hasShadow: true,
-                                  //           shadowAlphaColor: 150,
-                                  //           shadowBlurRadius: 0.1,
-                                  //         ),
                                 ),
                               ],
                             ),
 
-                            //1 Word type Selection
-                            customTextDropDownMenu(
-                              borderColor: Colors.black.withAlpha(150),
-                              borderWidth: 0.3,
-                              boxTopLeftBorderRadius: 15,
-                              boxBottomRightBorderRadius: 15,
-                              selectedValue: cubit.wordTypeValue,
-                              hasShadow: true,
-                              shadowAlphaColor: 150,
-                              shadowBlurRadius: 0.1,
-                              items: [
-                                const DropdownMenuItem(
-                                  value: 0,
-                                  child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 20.0),
-                                      child: Text('All Words')),
-                                ),
-                                const DropdownMenuItem(
-                                  value: 1,
-                                  child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 20.0),
-                                      child: Text('Nouns')),
-                                ),
-                                const DropdownMenuItem(
-                                  value: 2,
-                                  child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 20.0),
-                                      child: Text('Adjectives')),
-                                ),
-                                const DropdownMenuItem(
-                                  value: 3,
-                                  child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 20.0),
-                                      child: Text('Verbs')),
-                                ),
-                              ],
-                              onChanged: (newValue) {
-                                cubit.changeWordType(newValue: newValue ??= 0);
-                              },
-                            ),
-
-                            //1 Confirmation Button
-                            customMaterialButton(
-                              text: "Generate",
-                              onPressed: () {
-                                startWithFocusNode.unfocus();
-                                endWithFocusNode.unfocus();
-                                FocusScope.of(context).unfocus();
-                                cubit.generateWords(
-                                  startWith: startWithController.text,
-                                  endsWith: endWithController.text,
-                                );
-                              },
-                              padding: 20,
-                              hasGradient: true,
-                              gradientColors: [
-                                Colors.blue,
-                                Colors.blue,
-                                Colors.blue.shade400,
-                                Colors.blue.shade600,
-                              ],
-                            ),
+                            cubit.words.isEmpty
+                                ?
+                                // 2 Show No Results Text
+                                Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        "No results available...",
+                                        style: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey.shade400,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                :
+                                // 2 Show Results List
+                                Expanded(
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: cubit.words.length,
+                                      itemBuilder: (context, index) {
+                                        return Center(
+                                          child: customMaterialButton(
+                                            text: cubit.words[index],
+                                            fontSize: 30,
+                                            onPressed: () {
+                                              copyToClipboard(
+                                                text: cubit.words[index],
+                                              );
+                                            },
+                                            horizontalPadding: 10,
+                                            boxTopLeftBorderRadius: 25,
+                                            boxBottomRightBorderRadius: 25,
+                                            hasGradient: true,
+                                            gradientColors: [
+                                              Colors.blue.shade500,
+                                              Colors.indigo.shade600,
+                                            ],
+                                            hasShadow: true,
+                                            shadowAlphaColor: 150,
+                                            shadowBlurRadius: 0.5,
+                                            shadowOffset: const Offset(3, 2),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
                           ],
                         ),
                       ),
-                      //1 Results
+                      // 1 Modifiers Container
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.symmetric(vertical: 15),
                         child: Container(
-                          height: 250,
                           decoration: customBoxDecoration(
-                            hasBorder: true,
-                            borderWidth: 0.5,
-                            borderColor: Colors.grey.withAlpha(100),
+                            boxTopLeftBorderRadius: 25,
+                            boxBottomRightBorderRadius: 25,
                             hasShadow: true,
                             shadowAlphaColor: 150,
                             shadowBlurRadius: 0.1,
                             shadowOffset: const Offset(3, 2),
                           ),
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.symmetric(vertical: 15),
                           child: Column(
-                            // crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              //2 Begin - End Of Word Row
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Text(
-                                    "Results:",
-                                    style: TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey.shade600,
+                                  // 3 Begin Of Word Field
+                                  Expanded(
+                                    child: customTextFormField(
+                                      controller: startWithController,
+                                      focusNode: startWithFocusNode,
+                                      label: "Start With",
+                                      horizontalPadding: 10,
+                                      verticalPadding: 10,
+                                      boxTopLeftBorderRadius: 15,
+                                      boxBottomRightBorderRadius: 15,
+                                      borderWidth: 0.5,
+                                      borderColor: Colors.black.withAlpha(150),
+                                      borderFocusedWidth: 0.5,
+                                      focusBorderColor:
+                                          Colors.black.withAlpha(150),
+                                      hasShadow: true,
+                                      shadowAlphaColor: 150,
+                                      shadowBlurRadius: 0.1,
                                     ),
                                   ),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.copy,
-                                        size: 30,
-                                      ),
+                                  // 3 End Of Word Field
+                                  Expanded(
+                                    child: customTextFormField(
+                                      controller: endWithController,
+                                      focusNode: endWithFocusNode,
+                                      label: "End With",
+                                      horizontalPadding: 10,
+                                      verticalPadding: 10,
+                                      boxTopLeftBorderRadius: 15,
+                                      boxBottomRightBorderRadius: 15,
+                                      borderWidth: 0.5,
+                                      borderColor: Colors.black.withAlpha(150),
+                                      borderFocusedWidth: 0.5,
+                                      focusBorderColor:
+                                          Colors.black.withAlpha(150),
+                                      hasShadow: true,
+                                      shadowAlphaColor: 150,
+                                      shadowBlurRadius: 0.1,
                                     ),
                                   ),
                                 ],
                               ),
-                              cubit.words.isEmpty
-                                  ? Expanded(
-                                      child: Center(
-                                        child: Text(
-                                          "No results available...",
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey.shade600,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : Expanded(
-                                      child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: cubit.words.length,
-                                        itemBuilder: (context, index) {
-                                          return Center(
-                                            child: customMaterialButton(
-                                              // width: 100,
-                                              // height: 50,
-                                              fontSize: 30,
-                                              text: cubit.words[index],
 
-                                              //  WordGeneratorPlus().randomNounPlus(
-                                              //     startsWith: "fa", endsWith: "rt",
-
-                                              //     ),
-                                              onPressed: () {},
-                                              hasGradient: true,
-                                              // gradientColors: [
-                                              //   Colors.blue,
-                                              //   Colors.blue,
-                                              //   Colors.blue.shade400,
-                                              //   Colors.blue.shade600,
-                                              // ],
-                                            ),
-                                          );
-                                        },
-                                      ),
+                              // 2 Length - Count Of Word Row
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  // 3 Length Of Word Slider
+                                  Expanded(
+                                    child: customSlider(
+                                      hasBorder: true,
+                                      borderColor:
+                                          Colors.grey.shade500.withAlpha(190),
+                                      title:
+                                          "Word Length: ${cubit.wordLengthSlider.toInt()}",
+                                      value: cubit.wordLengthSlider,
+                                      onChanged: (newValue) {
+                                        cubit.changeSlider(
+                                          newValue: newValue.roundToDouble(),
+                                          sliderCount: 0,
+                                        );
+                                      },
+                                      horizontalPadding: 10,
+                                      minValue: 0,
                                     ),
+                                  ),
+                                  // 3 Count Of Word Slider
+                                  Expanded(
+                                    child: customSlider(
+                                      borderColor:
+                                          Colors.grey.shade500.withAlpha(190),
+                                      title:
+                                          "Word Count: ${cubit.wordCountSlider.toInt()}",
+                                      value: cubit.wordCountSlider,
+                                      onChanged: (newValue) {
+                                        cubit.changeSlider(
+                                          newValue: newValue.roundToDouble(),
+                                          sliderCount: 1,
+                                        );
+                                      },
+                                      verticalPadding: 10,
+                                      horizontalPadding: 10,
+                                      maxValue: 300,
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                              // 2 Word type Selection
+                              customTextDropDownMenu(
+                                borderColor: Colors.black.withAlpha(150),
+                                borderWidth: 0.3,
+                                boxTopLeftBorderRadius: 15,
+                                boxBottomRightBorderRadius: 15,
+                                selectedValue: cubit.wordTypeValue,
+                                hasShadow: true,
+                                shadowAlphaColor: 150,
+                                shadowBlurRadius: 0.1,
+                                items: [
+                                  const DropdownMenuItem(
+                                    value: 0,
+                                    child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Text('All Words')),
+                                  ),
+                                  const DropdownMenuItem(
+                                    value: 1,
+                                    child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Text('Nouns')),
+                                  ),
+                                  const DropdownMenuItem(
+                                    value: 2,
+                                    child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Text('Adjectives')),
+                                  ),
+                                  const DropdownMenuItem(
+                                    value: 3,
+                                    child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Text('Verbs')),
+                                  ),
+                                  const DropdownMenuItem(
+                                    value: 4,
+                                    child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Text('Adverbs')),
+                                  ),
+                                ],
+                                onChanged: (newValue) {
+                                  cubit.changeWordType(
+                                      newValue: newValue ??= 0);
+                                },
+                              ),
+
+                              // 2 Confirmation Button
+                              customMaterialButton(
+                                text: "Generate",
+                                onPressed: () {
+                                  startWithFocusNode.unfocus();
+                                  endWithFocusNode.unfocus();
+                                  FocusScope.of(context).unfocus();
+                                  cubit.generateWords(
+                                    startWith: startWithController.text,
+                                    endsWith: endWithController.text,
+                                  );
+                                },
+                                verticalPadding: 10,
+                                hasGradient: true,
+                                gradientColors: [
+                                  Colors.blue.shade500,
+                                  Colors.indigo.shade600,
+                                ],
+                                hasShadow: true,
+                                shadowAlphaColor: 150,
+                                shadowBlurRadius: 0.5,
+                                shadowOffset: const Offset(3, 2),
+                              ),
                             ],
                           ),
                         ),
