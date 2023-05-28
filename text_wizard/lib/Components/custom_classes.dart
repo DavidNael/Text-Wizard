@@ -75,6 +75,7 @@ class CustomWordGenerator {
     int sentenceLength = 1,
     int sentenceLines = 1,
     bool isSafeSearch = false,
+    bool shouldAddCommas = false,
   }) {
     List<String> words = [];
     String result = "";
@@ -108,10 +109,18 @@ class CustomWordGenerator {
     }
     // 1 Filter Sentence based on conditions
     int cnt = 1;
+    int lowerBound = (sentenceLines ~/ 2) - 2;
+    int upperBound = (sentenceLines ~/ 2) + 2;
     for (int i = 0; i < sentenceLength; i++) {
       result += "${words[Random().nextInt(words.length)]} ";
       if (i == sentenceLength - 1) {
         result += ".";
+      }
+      if (shouldAddCommas &&
+          cnt == sentenceLines &&
+          cnt == Random().nextInt(upperBound - lowerBound + 1) + lowerBound) {
+        result += ",\n";
+        cnt = 0;
       }
       if (cnt == sentenceLines) {
         result += "\n";

@@ -272,7 +272,18 @@ class SentenceGeneratorPage extends StatelessWidget {
                                       isActive: cubit.checkboxOptions[0],
                                       onTap: () {
                                         cubit.changeCheckBoxType(
-                                            optionNumber: 0);
+                                          optionNumber: 0,
+                                        );
+                                      },
+                                    ),
+                                    // 2 Add Commas Checkbox
+                                    customCheckbox(
+                                      text: "Add Commas",
+                                      isActive: cubit.checkboxOptions[1],
+                                      onTap: () {
+                                        cubit.changeCheckBoxType(
+                                          optionNumber: 1,
+                                        );
                                       },
                                     ),
 

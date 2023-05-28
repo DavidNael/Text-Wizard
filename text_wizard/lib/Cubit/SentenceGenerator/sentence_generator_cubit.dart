@@ -41,6 +41,7 @@ class SentenceGeneratorCubit extends Cubit<SentenceGeneratorState> {
       sentenceLength: sentenceLength,
       sentenceLines: sentenceLines,
       isSafeSearch: checkboxOptions[0],
+      shouldAddCommas: checkboxOptions[1],
     );
     emit(SentenceGeneratorFinishedGeneratingSentence());
   }
