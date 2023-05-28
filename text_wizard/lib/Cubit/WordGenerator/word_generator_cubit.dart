@@ -1,8 +1,5 @@
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:text_wizard/Components/functions.dart';
+import 'package:text_wizard/Components/custom_classes.dart';
 
 part 'word_generator_state.dart';
 
@@ -18,10 +15,10 @@ class WordGeneratorCubit extends Cubit<WordGeneratorState> {
     emit(WordGeneratorOptionChange());
   }
 
-  void changeSlider({required int sliderCount, required double newValue}) {
-    if (sliderCount == 0) {
+  void changeSlider({required int sliderId, required double newValue}) {
+    if (sliderId == 0) {
       wordLengthSlider = newValue;
-    } else if (sliderCount == 1) {
+    } else if (sliderId == 1) {
       wordCountSlider = newValue;
     }
     emit(WordGeneratorOptionChange());
@@ -32,7 +29,7 @@ class WordGeneratorCubit extends Cubit<WordGeneratorState> {
     String endsWith = "",
   }) {
     emit(WordGeneratorGeneratingWords());
-    words = wordGenerator(
+    words = CustomWordGenerator().wordGenerator(
       startWith: startWith,
       endsWith: endsWith,
       wordCount: wordCountSlider.toInt(),
@@ -50,6 +47,4 @@ class WordGeneratorCubit extends Cubit<WordGeneratorState> {
     }
     emit(WordGeneratorGeneratedAllWords());
   }
-
-
 }

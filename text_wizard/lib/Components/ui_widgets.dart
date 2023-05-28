@@ -446,6 +446,7 @@ Widget customMaterialButton({
   double fontSize = 15,
   Color buttonColor = Colors.blue,
   Color textColor = Colors.white,
+  int? maxLines = 1,
 
   // 1 Box Settings
   BoxShape boxShape = BoxShape.rectangle,
@@ -523,7 +524,7 @@ Widget customMaterialButton({
             color: textColor,
             fontSize: fontSize,
           ),
-          maxLines: 1,
+          maxLines: maxLines,
         ),
       ),
     ),

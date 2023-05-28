@@ -196,6 +196,9 @@ class WordGeneratorPage extends StatelessWidget {
                           decoration: customBoxDecoration(
                             boxTopLeftBorderRadius: 25,
                             boxBottomRightBorderRadius: 25,
+                            hasBorder: true,
+                            borderWidth: 0.5,
+                            borderColor: Colors.grey.withAlpha(100),
                             hasShadow: true,
                             shadowAlphaColor: 150,
                             shadowBlurRadius: 0.1,
@@ -269,7 +272,7 @@ class WordGeneratorPage extends StatelessWidget {
                                       onChanged: (newValue) {
                                         cubit.changeSlider(
                                           newValue: newValue.roundToDouble(),
-                                          sliderCount: 0,
+                                          sliderId: 0,
                                         );
                                       },
                                       horizontalPadding: 10,
@@ -287,7 +290,7 @@ class WordGeneratorPage extends StatelessWidget {
                                       onChanged: (newValue) {
                                         cubit.changeSlider(
                                           newValue: newValue.roundToDouble(),
-                                          sliderCount: 1,
+                                          sliderId: 1,
                                         );
                                       },
                                       verticalPadding: 10,
@@ -351,7 +354,7 @@ class WordGeneratorPage extends StatelessWidget {
                                 },
                               ),
 
-                              // 2 Confirmation Button
+                              // 2 Generate Button
                               customMaterialButton(
                                 text: "Generate",
                                 onPressed: () {
