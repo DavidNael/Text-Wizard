@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:text_wizard/Components/ui_widgets.dart';
 
 Future<dynamic> customShowDialog({
   required BuildContext context,
@@ -16,17 +17,11 @@ Future<dynamic> customShowDialog({
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        title: Text(
-          title,
-          style: const TextStyle(
-            color: Colors.black,
-          ),
+        title: customText(
+          text: title,
         ),
-        content: Text(
-          content,
-          style: const TextStyle(
-            color: Colors.black,
-          ),
+        content: customText(
+          text: title,
         ),
         actions: [
           Row(
@@ -37,10 +32,9 @@ Future<dynamic> customShowDialog({
                   Navigator.pop(context);
                   onPressed != null ? onPressed() : null;
                 },
-                child: const Center(
-                  child: Text(
-                    'Ok',
-                    style: TextStyle(color: Colors.black),
+                child: Center(
+                  child: customText(
+                    text: title,
                   ),
                 ),
               ),
@@ -63,19 +57,15 @@ Future<dynamic> customLoadingDialog({
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        title: const Column(
+        title: Column(
           children: [
-            Text(
-              "Loading...",
-              style: TextStyle(
-                color: Colors.black,
-              ),
-              textAlign: TextAlign.center,
+            customText(
+              text: "Loading...",
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            CircularProgressIndicator(),
+            const CircularProgressIndicator(),
           ],
         ),
         // actions: [],

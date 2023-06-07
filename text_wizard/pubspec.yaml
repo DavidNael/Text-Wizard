@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+   
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -52,6 +52,7 @@ dependencies:
   word_generator: ^0.4.3
   english_words: ^4.0.0
   share_plus: ^7.0.1
+  logger: ^1.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -68,7 +69,28 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat/static/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat/static/Montserrat-Bold.ttf
+          style: italic
+        - asset: assets/fonts/Montserrat/static/Montserrat-Italic.ttf
+          weight: 700
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto/Roboto-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Roboto/Roboto-Italic.ttf
+          style: italic
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/Open_Sans/static/OpenSans-Regular.ttf
+        - asset: assets/fonts/Open_Sans/static/OpenSans-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Open_Sans/static/OpenSans-Italic.ttf
+          style: italic
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

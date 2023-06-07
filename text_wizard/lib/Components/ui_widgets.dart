@@ -1,3 +1,7 @@
+import 'package:text_wizard/Constants/fonts.dart';
+
+import 'custom_classes.dart';
+import 'functions.dart';
 import 'transition_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -113,6 +117,46 @@ BoxDecoration customBoxDecoration({
   );
 }
 
+Text customText({
+  String text = "Test",
+  int? maxLines,
+  double? letterSpacing,
+  double? wordSpacing,
+  double? fontSize,
+  bool isBold = false,
+  bool isItalic = false,
+  bool isUnderlined = false,
+  bool isLineThrough = false,
+  bool isOverline = false,
+  isEllipsis = false,
+  fontFamily = AppFonts.openSans,
+  Color textColor = Colors.black,
+  TextAlign? textAlign,
+}) {
+  return Text(
+    text,
+    style: TextStyle(
+      fontSize: fontSize,
+      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+      fontStyle: isItalic ? FontStyle.italic : FontStyle.normal,
+      fontFamily: fontFamily,
+      color: textColor,
+      decoration: isUnderlined
+          ? TextDecoration.underline
+          : isLineThrough
+              ? TextDecoration.lineThrough
+              : isOverline
+                  ? TextDecoration.overline
+                  : TextDecoration.none,
+      letterSpacing: letterSpacing,
+      wordSpacing: wordSpacing,
+    ),
+    maxLines: maxLines,
+    overflow: isEllipsis ? TextOverflow.ellipsis : TextOverflow.visible,
+    textAlign: textAlign,
+  );
+}
+
 Widget homeIcon({
   required BuildContext context,
   required String title,
@@ -162,16 +206,15 @@ Widget homeIcon({
         ),
       ),
       Expanded(
-        child: Padding(
+        child: Container(
           padding: const EdgeInsets.all(10),
-          child: Text(
-            title,
-            maxLines: 2,
-            style: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
+          width: 110,
+          child: customText(
+            text: title,
+            fontSize: 15,
+            isBold: true,
             textAlign: TextAlign.center,
+            maxLines: 2,
           ),
         ),
       ),
@@ -278,6 +321,7 @@ Widget customTextDropDownMenu({
 Widget customTextFormField({
   VoidCallback? onPressed,
   String label = "",
+  String? hint,
   Color? titleColor,
   Color backgroundColor = Colors.white,
   Color? focusBackgroundColor,
@@ -288,6 +332,8 @@ Widget customTextFormField({
   double borderFocusedWidth = 0,
   double verticalPadding = 0,
   double horizontalPadding = 0,
+  double? fontSize,
+  double? hintFontSize,
   TextEditingController? controller,
   FocusNode? focusNode,
   TextInputType keyboardType = TextInputType.text,
@@ -336,7 +382,11 @@ Widget customTextFormField({
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white24,
-          label: Text(label),
+          label: customText(
+            text: label,
+            fontSize: fontSize,
+          ),
+          hintText: hint,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(boxTopLeftBorderRadius),
@@ -398,8 +448,8 @@ Widget customExpansionTile({
 }) {
   return ExpansionTile(
     initiallyExpanded: isExpanded,
-    title: Text(
-      title,
+    title: customText(
+      text: title,
     ),
     childrenPadding: EdgeInsets.all(padding),
     collapsedShape: RoundedRectangleBorder(
@@ -429,9 +479,9 @@ Widget customElevatedButton({
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         backgroundColor: buttonColor,
       ),
-      child: Text(
-        text,
-        style: TextStyle(color: textColor),
+      child: customText(
+        text: text,
+        textColor: textColor,
       ),
     ),
   );
@@ -477,54 +527,55 @@ Widget customMaterialButton({
   double shadowBlurRadius = 10,
   double shadowSpreadRadius = 0.3,
 }) {
-  return Padding(
-    padding: EdgeInsets.symmetric(
+  return Container(
+    width: width,
+    height: height,
+    margin: EdgeInsets.symmetric(
       vertical: verticalPadding,
       horizontal: horizontalPadding,
     ),
-    child: Container(
-      width: width,
-      height: height,
-      decoration: customBoxDecoration(
-        boxShape: boxShape,
-        boxColor: boxColor,
-        boxBorderRadius: boxBorderRadius,
-        boxTopLeftBorderRadius: boxTopLeftBorderRadius,
-        boxTopRightBorderRadius: boxTopRightBorderRadius,
-        boxBottomLeftBorderRadius: boxBottomLeftBorderRadius,
-        boxBottomRightBorderRadius: boxBottomRightBorderRadius,
-        hasGradient: hasGradient,
-        gradientBegin: gradientBegin,
-        gradientEnd: gradientEnd,
-        gradientColors: gradientColors,
-        hasBorder: hasBorder,
-        borderWidth: borderWidth,
-        borderColor: borderColor,
-        hasShadow: hasShadow,
-        shadowColor: shadowColor,
-        shadowOffset: shadowOffset,
-        shadowAlphaColor: shadowAlphaColor,
-        shadowBlurRadius: shadowBlurRadius,
-        shadowSpreadRadius: shadowSpreadRadius,
-      ),
-      child: MaterialButton(
-        onPressed: onPressed,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
+    decoration: customBoxDecoration(
+      boxShape: boxShape,
+      boxColor: boxColor,
+      boxBorderRadius: boxBorderRadius,
+      boxTopLeftBorderRadius: boxTopLeftBorderRadius,
+      boxTopRightBorderRadius: boxTopRightBorderRadius,
+      boxBottomLeftBorderRadius: boxBottomLeftBorderRadius,
+      boxBottomRightBorderRadius: boxBottomRightBorderRadius,
+      hasGradient: hasGradient,
+      gradientBegin: gradientBegin,
+      gradientEnd: gradientEnd,
+      gradientColors: gradientColors,
+      hasBorder: hasBorder,
+      borderWidth: borderWidth,
+      borderColor: borderColor,
+      hasShadow: hasShadow,
+      shadowColor: shadowColor,
+      shadowOffset: shadowOffset,
+      shadowAlphaColor: shadowAlphaColor,
+      shadowBlurRadius: shadowBlurRadius,
+      shadowSpreadRadius: shadowSpreadRadius,
+    ),
+    child: Material(
+      color: hasGradient ? Colors.transparent : buttonColor,
+      child: InkWell(
+        borderRadius: BorderRadius.only(
           topLeft: Radius.circular(boxTopLeftBorderRadius),
           topRight: Radius.circular(boxTopRightBorderRadius),
           bottomLeft: Radius.circular(boxBottomLeftBorderRadius),
           bottomRight: Radius.circular(boxBottomRightBorderRadius),
-        )),
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        color: hasGradient ? Colors.transparent : buttonColor,
-        child: Text(
-          text,
-          style: TextStyle(
-            color: textColor,
-            fontSize: fontSize,
+        ),
+        onTap: onPressed,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Center(
+            child: customText(
+              text: text,
+              textColor: textColor,
+              fontSize: fontSize,
+              maxLines: maxLines,
+            ),
           ),
-          maxLines: maxLines,
         ),
       ),
     ),
@@ -566,7 +617,9 @@ Widget customCheckbox({
           ),
         ),
       ),
-      Text(text),
+      customText(
+        text: text,
+      ),
     ],
   );
 }
@@ -602,17 +655,17 @@ Widget customSlider({
 }) {
   return Padding(
     padding: EdgeInsets.symmetric(
-        vertical: verticalPadding, horizontal: horizontalPadding),
+      vertical: verticalPadding,
+      horizontal: horizontalPadding,
+    ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+          child: customText(
+            text: title,
+            isBold: true,
           ),
         ),
         Container(
@@ -651,11 +704,9 @@ Widget customResultBox({
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+          child: customText(
+            text: title,
+            isBold: true,
           ),
         ),
         Container(
@@ -668,19 +719,21 @@ Widget customResultBox({
           child: Row(
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  copyToClipboard(
+                    text: result,
+                  );
+                },
                 icon: const Icon(
                   Icons.copy,
                   color: Colors.white,
                 ),
               ),
               Expanded(
-                child: Text(
-                  result,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                child: customText(
+                  text: result,
+                  isBold: true,
+                  textColor: Colors.white,
                 ),
               ),
             ],
@@ -691,30 +744,53 @@ Widget customResultBox({
   );
 }
 
-class WavyAppBarClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0, size.height - 30);
-
-    final firstControlPoint = Offset(size.width / 4, size.height);
-    final firstEndPoint = Offset(size.width / 2.25, size.height - 30);
-    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
-        firstEndPoint.dx, firstEndPoint.dy);
-
-    final secondControlPoint =
-        Offset(size.width - (size.width / 3.25), size.height - 80);
-    final secondEndPoint = Offset(size.width, size.height - 40);
-    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
-        secondEndPoint.dx, secondEndPoint.dy);
-
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return false;
-  }
+SliverAppBar customAppbar({
+  required BuildContext context,
+  required String title,
+}) {
+  return SliverAppBar(
+    backgroundColor: Colors.transparent,
+    shadowColor: Colors.transparent,
+    elevation: 0,
+    toolbarHeight: 170,
+    flexibleSpace: Stack(
+      children: [
+        ClipPath(
+          clipper: WavyAppBarClipper(),
+          child: Container(
+            decoration: customBoxDecoration(
+              hasGradient: true,
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          alignment: Alignment.centerLeft,
+          child: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.white,
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(),
+          ),
+        ),
+      ],
+    ),
+    centerTitle: true,
+    floating: true,
+    automaticallyImplyLeading: false,
+  );
 }

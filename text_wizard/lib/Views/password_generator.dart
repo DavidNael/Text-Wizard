@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:text_wizard/Components/ui_widgets.dart';
+import 'package:text_wizard/Constants/colors.dart';
 import 'package:text_wizard/Cubit/PasswordGenerator/password_generator_cubit.dart';
 
 class PasswordGeneratorPage extends StatelessWidget {
@@ -15,109 +16,100 @@ class PasswordGeneratorPage extends StatelessWidget {
         // BuildContext mainContext = context;
         final cubit = PasswordGeneratorCubit.getCubit(context);
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.indigo.shade800.withAlpha(0),
-            shadowColor: Colors.transparent,
-            elevation: 0,
-            toolbarHeight: 200,
-            flexibleSpace: ClipPath(
-              clipper: WavyAppBarClipper(),
-              child: Container(
-                decoration: customBoxDecoration(
-                  hasGradient: true,
-                ),
-              ),
-            ),
-            title: const Text("𝗣𝗮𝘀𝘀𝘄𝗼𝗿𝗱 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗼𝗿"),
-            centerTitle: true,
-          ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
-              child: Form(
-                child: Column(
-                  children: [
-                    //1  Result Box
-                    customResultBox(
-                      title: "Generated Password: ",
-                      result: "nbgjlwns*Gw48fqf@r98hg21564##15#qr123r4661",
-                    ),
-                    // 1 Password Length
-                    customSlider(
-                      title: "Password Length: ${cubit.sliderValue.toInt()}",
-                      value: cubit.sliderValue,
-                      onChanged: (newValue) {
-                        cubit.changeSlider(newValue: newValue.roundToDouble());
-                      },
-                      verticalPadding: 20,
-                    ),
-                    // 1 Include Numbers
-                    customCheckbox(
-                      text: "Include Numbers",
-                      isActive: cubit.options[0],
-                      onTap: () {
-                        cubit.changeOptionType(optionNumber: 0);
-                      },
-                    ),
+          backgroundColor: backgroundColor,
+          body: CustomScrollView(
+            slivers: [
+              // 1 AppBar
+              customAppbar(context: context, title: "Password Generator"),
 
-                    // 1 Include Capital Letters
-                    customCheckbox(
-                      text: "Include Capital Characters",
-                      isActive: cubit.options[1],
-                      onTap: () {
-                        cubit.changeOptionType(optionNumber: 1);
-                      },
-                    ),
+              // 1 Body
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5.0, vertical: 5),
+                      child: Container(
+                        decoration: customBoxDecoration(
+                          boxTopLeftBorderRadius: 25,
+                          boxBottomRightBorderRadius: 25,
+                          hasBorder: true,
+                          borderWidth: 0.5,
+                          borderColor: Colors.grey.withAlpha(100),
+                          hasShadow: true,
+                          shadowAlphaColor: 150,
+                          shadowBlurRadius: 0.1,
+                          shadowOffset: const Offset(3, 2),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 15,
+                          horizontal: 10,
+                        ),
+                        child: Column(
+                          children: [
+                            //1  Result Box
+                            customResultBox(
+                              title: "Generated Password: ",
+                              result: cubit.password,
+                            ),
 
-                    // 1 Include Special Letters
-                    customCheckbox(
-                      text: "Include Special Characters",
-                      isActive: cubit.options[2],
-                      onTap: () {
-                        cubit.changeOptionType(optionNumber: 2);
-                      },
-                    ),
-                    //1 Confirmation Button
-                    customMaterialButton(
-                      text: "Generate",
-                      onPressed: () {},
-                      // padding: 20,
-                      hasGradient: true,
-                      gradientColors: [
-                        Colors.blue,
-                        Colors.blue,
-                        Colors.blue.shade400,
-                        Colors.blue.shade600,
-                      ],
-                    ),
+                            //1 Password Length
+                            customSlider(
+                              title:
+                                  "Password Length: ${cubit.passwordLengthValue.toInt()}",
+                              value: cubit.passwordLengthValue,
+                              onChanged: (newValue) {
+                                cubit.changeSlider(
+                                    newValue: newValue.roundToDouble());
+                              },
+                              verticalPadding: 20,
+                              minValue: 8,
+                            ),
 
-                    // 1 Results
-                    // Container(
-                    //   decoration: BoxDecoration(
-                    //     border: Border.all(
-                    //       width: 0.5,
-                    //       color: Colors.grey.withAlpha(100),
-                    //     ),
-                    //     borderRadius: BorderRadius.circular(10),
-                    //   ),
-                    //   child: ListView.builder(
-                    //     shrinkWrap: true,
-                    //     physics: const NeverScrollableScrollPhysics(),
-                    //     itemCount: 50,
-                    //     itemBuilder: (context, index) {
-                    //       return Text("Placeholder $index");
-                    //       // customMaterialButton(
-                    //       //   text: "PlaceHolder $index",
-                    //       //   onPressed: () {},
-                    //       // );
-                    //     },
-                    //   ),
-                    // ),
+                            // 1 Include Numbers
+                            customCheckbox(
+                              text: "Include Numbers",
+                              isActive: cubit.options[0],
+                              onTap: () {
+                                cubit.changeOptionType(optionNumber: 0);
+                              },
+                            ),
+
+                            // 1 Include Capital Letters
+                            customCheckbox(
+                              text: "Include Capital Characters",
+                              isActive: cubit.options[1],
+                              onTap: () {
+                                cubit.changeOptionType(optionNumber: 1);
+                              },
+                            ),
+
+                            // 1 Include Special Letters
+                            customCheckbox(
+                              text: "Include Special Characters",
+                              isActive: cubit.options[2],
+                              onTap: () {
+                                cubit.changeOptionType(optionNumber: 2);
+                              },
+                            ),
+
+                            //1 Confirmation Button
+                            customMaterialButton(
+                              text: "Generate",
+                              onPressed: () {
+                                cubit.generatePassword();
+                              },
+                              hasGradient: true,
+                              gradientColors: buttonGradientColors,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
+            ],
           ),
         );
       },

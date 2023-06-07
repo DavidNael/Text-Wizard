@@ -8,7 +8,7 @@ class SentenceGeneratorCubit extends Cubit<SentenceGeneratorState> {
   static SentenceGeneratorCubit getCubit(context) => BlocProvider.of(context);
   int wordTypeValue = 0;
   double sentenceWordsSliderValue = 1;
-  double sentenceLinesSliderValue = 1;
+  double sentenceLinesSliderValue = 5;
   List<bool> checkboxOptions = [false, false, false];
   String sentence = "";
   void changeWordType({required int newValue}) {
@@ -25,18 +25,18 @@ class SentenceGeneratorCubit extends Cubit<SentenceGeneratorState> {
     emit(SentenceGeneratorOptionChange());
   }
 
-  void changeCheckBoxType({required int optionNumber}) {
-    checkboxOptions[optionNumber] = !checkboxOptions[optionNumber];
+  void changeCheckBoxValue({required int checkboxNumber}) {
+    checkboxOptions[checkboxNumber] = !checkboxOptions[checkboxNumber];
     emit(SentenceGeneratorOptionChange());
   }
 
   void generateSentence({
     int wordType = 0,
     int sentenceLength = 1,
-    int sentenceLines = 1,
+    int sentenceLines = 5,
   }) {
     emit(SentenceGeneratorGeneratingSentence());
-    sentence = CustomWordGenerator().sentenceGenerator(
+    sentence = TextUtilities().sentenceGenerator(
       wordType: wordType,
       sentenceLength: sentenceLength,
       sentenceLines: sentenceLines,

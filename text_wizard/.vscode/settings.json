@@ -1,10 +1,4 @@
 {
-    "cmake.sourceDirectory": "E:/Flutter/Projects/TextWizard/Repo/Text-Wizard/text_wizard/windows/flutter",
-    "cmake.configureOnOpen": false,
-    "cSpell.words": [
-        "Cupertino",
-        "fluttertoast",
-        "hexcolor",
-        "Nael"
-    ]
+  "betterFolding.showOnlyRegionsDescriptions": true,
+  "editor.foldingStrategy": "indentation"
 }

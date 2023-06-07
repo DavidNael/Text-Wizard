@@ -6,7 +6,6 @@ import 'package:text_wizard/Cubit/Homepage/homepage_cubit.dart';
 import 'package:text_wizard/Cubit/WordGenerator/word_generator_cubit.dart';
 import 'package:text_wizard/Cubit/PasswordGenerator/password_generator_cubit.dart';
 import 'package:text_wizard/Cubit/SentenceGenerator/sentence_generator_cubit.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -17,8 +16,6 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
