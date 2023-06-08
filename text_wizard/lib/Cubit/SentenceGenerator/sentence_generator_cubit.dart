@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:text_wizard/Components/custom_classes.dart';
+import 'package:tex_wiz/Components/custom_classes.dart';
 
 part 'sentence_generator_state.dart';
 

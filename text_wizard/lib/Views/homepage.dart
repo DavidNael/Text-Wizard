@@ -1,18 +1,15 @@
-import 'password_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:text_wizard/Components/ui_widgets.dart';
-import 'package:text_wizard/Views/word_generator.dart';
-import 'package:text_wizard/Views/sentence_generator.dart';
-import 'package:text_wizard/Cubit/Homepage/homepage_cubit.dart';
-import 'package:text_wizard/Cubit/Homepage/homepage_state.dart';
+import 'package:tex_wiz/Components/ui_widgets.dart';
+import 'package:tex_wiz/Cubit/Homepage/homepage_cubit.dart';
+import 'package:tex_wiz/Cubit/Homepage/homepage_state.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    BuildContext mainContext = context; 
+    BuildContext mainContext = context;
     return BlocConsumer<HomepageCubit, HomepageStates>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -23,6 +20,7 @@ class HomePage extends StatelessWidget {
           ),
           body: Column(
             children: [
+              // 1 Header Bar
               Container(
                 height: 300,
                 width: double.infinity,
@@ -103,75 +101,27 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
+
+              // 1 Page Options
               Expanded(
-                child: GridView.count(
-                  childAspectRatio: 0.85,
-                  crossAxisCount: 3,
-                  children: [
-                    homeIcon(
+                child: GridView.builder(
+                  // physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 0.8,
+                  ),
+
+                  itemCount: cubit.pages.length,
+                  itemBuilder: (context, index) {
+                    return homeIcon(
                       context: context,
-                      title: "Word Generator",
-                      color: Colors.blue,
-                      icon: Icons.numbers,
-                      navigatePage: const WordGeneratorPage(),
-                    ),
-                    homeIcon(
-                      context: context,
-                      title: "Sentence Generator",
-                      color: Colors.green.shade800,
-                      icon: Icons.numbers,
-                      navigatePage: const SentenceGeneratorPage(),
-                    ),
-                    homeIcon(
-                      context: context,
-                      title: "Password Generator",
-                      color: Colors.red,
-                      icon: Icons.password,
-                      navigatePage: const PasswordGeneratorPage(),
-                    ),
-                    homeIcon(
-                      context: context,
-                      title: "Name Generator",
-                      color: Colors.pink,
-                      icon: Icons.abc,
-                      navigatePage: const WordGeneratorPage(),
-                    ),
-                    homeIcon(
-                      context: context,
-                      title: "Language Translation",
-                      color: Colors.orange,
-                      icon: Icons.translate,
-                      navigatePage: const WordGeneratorPage(),
-                    ),
-                    homeIcon(
-                      context: context,
-                      title: "Anagram Generator", //1 Example: Dog->God
-                      color: Colors.blue.shade900,
-                      icon: Icons.factory,
-                      navigatePage: const WordGeneratorPage(),
-                    ),
-                    homeIcon(
-                      context: context,
-                      title: "Emoji Search",
-                      color: Colors.teal.shade800,
-                      icon: Icons.emoji_emotions,
-                      navigatePage: const WordGeneratorPage(),
-                    ),
-                    homeIcon(
-                      context: context,
-                      title: "Case Converter",
-                      color: Colors.deepPurple.shade700,
-                      icon: Icons.text_fields,
-                      navigatePage: const WordGeneratorPage(),
-                    ),
-                    homeIcon(
-                      context: context,
-                      title: "Unicode Converter",
-                      color: Colors.grey.shade800,
-                      icon: Icons.text_increase,
-                      navigatePage: const WordGeneratorPage(),
-                    ),
-                  ],
+                      title: cubit.pages[index].pageName,
+                      color: cubit.pages[index].pageColor,
+                      icon: cubit.pages[index].pageIcon,
+                      navigatePage: cubit.pages[index].pageWidget,
+                      size: 100,
+                    );
+                  },
                 ),
               ),
             ],

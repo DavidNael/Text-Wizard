@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:text_wizard/Components/functions.dart';
-import 'package:text_wizard/Components/ui_widgets.dart';
-import 'package:text_wizard/Cubit/SentenceGenerator/sentence_generator_cubit.dart';
+import 'package:tex_wiz/Components/functions.dart';
+import 'package:tex_wiz/Components/ui_widgets.dart';
+import 'package:tex_wiz/Cubit/SentenceGenerator/sentence_generator_cubit.dart';
 import 'package:word_generator/word_generator.dart';
 
 class SentenceGeneratorPage extends StatelessWidget {

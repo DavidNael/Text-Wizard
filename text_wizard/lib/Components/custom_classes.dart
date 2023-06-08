@@ -1,12 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:text_wizard/Constants/adjectives.dart';
-import 'package:text_wizard/Constants/adverbs.dart';
-import 'package:text_wizard/Constants/all_words.dart';
-import 'package:text_wizard/Constants/nouns.dart';
-import 'package:text_wizard/Constants/possessives.dart';
-import 'package:text_wizard/Constants/verbs.dart';
+import 'package:tex_wiz/Constants/adjectives.dart';
+import 'package:tex_wiz/Constants/adverbs.dart';
+import 'package:tex_wiz/Constants/all_words.dart';
+import 'package:tex_wiz/Constants/nouns.dart';
+import 'package:tex_wiz/Constants/possessives.dart';
+import 'package:tex_wiz/Constants/verbs.dart';
+
+import '../Constants/names.dart';
 
 class TextUtilities {
   List<String> wordGenerator({
@@ -132,6 +134,40 @@ class TextUtilities {
     return sb.toString();
   }
 
+  List<String> nameGenerator({
+    String startWith = "",
+    String endsWith = "",
+    int nameCount = 1,
+    int nameLength = 0,
+  }) {
+    List<String> results = [];
+    List<String> words = allNames;
+    // 1 Filter words based on conditions
+    if (startWith.isNotEmpty || endsWith.isNotEmpty || nameLength != 0) {
+      words = words.where((word) {
+        bool startsWithCondition = startWith.isNotEmpty
+            ? word.toLowerCase().startsWith(startWith)
+            : true;
+        bool endsWithCondition =
+            endsWith.isNotEmpty ? word.toLowerCase().endsWith(endsWith) : true;
+        bool wordLengthCondition =
+            nameLength != 0 ? word.length == nameLength : true;
+        return startsWithCondition && endsWithCondition && wordLengthCondition;
+      }).toList();
+    }
+    if (words.isEmpty) {
+      return [];
+    }
+    if (words.length < nameCount) {
+      return words;
+    }
+
+    for (int i = 0; i < nameCount; i++) {
+      results.add(words[Random().nextInt(words.length)]);
+    }
+    return results;
+  }
+
   List<String> filterWords(
       {required int wordType, required bool isSafeSearch}) {
     List<String> words = [];
@@ -195,3 +231,15 @@ class WavyAppBarClipper extends CustomClipper<Path> {
   }
 }
 
+class HomepageElement {
+  String pageName;
+  Widget pageWidget;
+  IconData pageIcon;
+  Color pageColor;
+  HomepageElement({
+    required this.pageName,
+    required this.pageWidget,
+    required this.pageIcon,
+    required this.pageColor,
+  });
+}

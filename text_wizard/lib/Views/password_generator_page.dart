@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:text_wizard/Components/ui_widgets.dart';
-import 'package:text_wizard/Constants/colors.dart';
-import 'package:text_wizard/Cubit/PasswordGenerator/password_generator_cubit.dart';
+import 'package:tex_wiz/Components/ui_widgets.dart';
+import 'package:tex_wiz/Constants/colors.dart';
+import 'package:tex_wiz/Cubit/PasswordGenerator/password_generator_cubit.dart';
 
 class PasswordGeneratorPage extends StatelessWidget {
   const PasswordGeneratorPage({super.key});

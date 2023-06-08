@@ -1,4 +1,4 @@
-import 'package:text_wizard/Constants/fonts.dart';
+import 'package:tex_wiz/Constants/fonts.dart';
 
 import 'custom_classes.dart';
 import 'functions.dart';
@@ -163,52 +163,53 @@ Widget homeIcon({
   required Color color,
   required IconData icon,
   required Widget navigatePage,
+  double size = 100,
 }) {
   Color? shadowColor = ColorTween(begin: color, end: Colors.black).lerp(0.3);
-  return Column(
-    children: [
-      Container(
-        width: 100,
-        height: 100,
-        decoration: customBoxDecoration(
-          boxShape: BoxShape.circle,
-          hasShadow: true,
-          shadowOffset: const Offset(0, 10),
-          shadowBlurRadius: 10,
-          shadowColor: shadowColor ??= Colors.grey,
-          shadowSpreadRadius: 0.3,
-        ),
-        child: Material(
-          shape: const CircleBorder(),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(40),
-            onTap: () {
-              navigateTo(context: context, destination: navigatePage);
-            },
-            child: Ink(
-              decoration: customBoxDecoration(
-                boxShape: BoxShape.circle,
-                hasGradient: true,
-                gradientColors: [
-                  color.withAlpha(150),
-                  color,
-                ],
-              ),
-              child: ClipOval(
-                child: Icon(
-                  icon,
-                  size: 40,
-                  color: Colors.white,
+  return FittedBox(
+    fit: BoxFit.contain,
+    child: Column(
+      children: [
+        Container(
+          width: size,
+          height: size,
+          decoration: customBoxDecoration(
+            boxShape: BoxShape.circle,
+            hasShadow: true,
+            shadowOffset: const Offset(0, 10),
+            shadowBlurRadius: 10,
+            shadowColor: shadowColor ??= Colors.grey,
+            shadowSpreadRadius: 0.3,
+          ),
+          child: Material(
+            shape: const CircleBorder(),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(40),
+              onTap: () {
+                navigateTo(context: context, destination: navigatePage);
+              },
+              child: Ink(
+                decoration: customBoxDecoration(
+                  boxShape: BoxShape.circle,
+                  hasGradient: true,
+                  gradientColors: [
+                    color.withAlpha(150),
+                    color,
+                  ],
+                ),
+                child: ClipOval(
+                  child: Icon(
+                    icon,
+                    size: 40,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
-      Expanded(
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          width: 110,
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
           child: customText(
             text: title,
             fontSize: 15,
@@ -217,8 +218,8 @@ Widget homeIcon({
             maxLines: 2,
           ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }
 

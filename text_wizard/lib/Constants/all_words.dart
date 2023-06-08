@@ -1,8 +1,8 @@
-import 'package:text_wizard/Constants/adjectives.dart';
-import 'package:text_wizard/Constants/adverbs.dart';
-import 'package:text_wizard/Constants/nouns.dart';
-import 'package:text_wizard/Constants/possessives.dart';
-import 'package:text_wizard/Constants/verbs.dart';
+import 'package:tex_wiz/Constants/adjectives.dart';
+import 'package:tex_wiz/Constants/adverbs.dart';
+import 'package:tex_wiz/Constants/nouns.dart';
+import 'package:tex_wiz/Constants/possessives.dart';
+import 'package:tex_wiz/Constants/verbs.dart';
 
 final List<String> allSafeWords = safeNounWords +
     safeAdjectiveWords +

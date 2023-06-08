@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:text_wizard/Components/ui_widgets.dart';
+import 'package:tex_wiz/Components/ui_widgets.dart';
 
 Future<dynamic> customShowDialog({
   required BuildContext context,
