@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tex_wiz/Cubit/DuplicateRemover/duplicate_remover_states.dart';
+import 'package:tex_wiz/Cubit/DuplicateRemover/duplicate_remover_state.dart';
 
 import '../../Components/custom_classes.dart';
 

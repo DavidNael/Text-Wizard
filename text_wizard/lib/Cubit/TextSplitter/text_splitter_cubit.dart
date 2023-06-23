@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tex_wiz/Components/custom_classes.dart';
-import 'package:tex_wiz/Cubit/TextSplitter/text_splitter_states.dart';
+import 'package:tex_wiz/Cubit/TextSplitter/text_splitter_state.dart';
 
 class TextSplitterCubit extends Cubit<TextSplitterState> {
   TextSplitterCubit() : super(TextSplitterInitialState());

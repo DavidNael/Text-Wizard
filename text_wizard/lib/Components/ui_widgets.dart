@@ -1,10 +1,5 @@
-import 'dart:ui';
-
 import 'package:tex_wiz/Constants/fonts.dart';
-
-import '../Constants/colors.dart';
 import 'custom_classes.dart';
-import 'transition_widgets.dart';
 import 'package:flutter/material.dart';
 
 BoxShadow customBoxShadow({
@@ -156,81 +151,6 @@ Text customText({
     maxLines: maxLines,
     overflow: isEllipsis ? TextOverflow.ellipsis : TextOverflow.visible,
     textAlign: textAlign,
-  );
-}
-
-Widget homeIcon({
-  required BuildContext context,
-  required String title,
-  required Color color,
-  required IconData icon,
-  required Widget navigatePage,
-  Color textColor = Colors.black,
-  double size = 100,
-  double horizontalPadding = 0,
-  double verticalPadding = 0,
-}) {
-  Color? shadowColor = ColorTween(begin: color, end: Colors.black).lerp(0.3);
-  return Padding(
-    padding: EdgeInsets.symmetric(
-        horizontal: horizontalPadding, vertical: verticalPadding),
-    child: FittedBox(
-      fit: BoxFit.contain,
-      child: Column(
-        children: [
-          Container(
-            width: size,
-            height: size,
-            decoration: customBoxDecoration(
-              boxShape: BoxShape.circle,
-              hasShadow: true,
-              shadowOffset: const Offset(0, 10),
-              shadowBlurRadius: 10,
-              shadowColor: shadowColor ??= Colors.grey,
-              shadowSpreadRadius: 0.3,
-            ),
-            child: Material(
-              shape: const CircleBorder(),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(40),
-                onTap: () {
-                  CustomNavigation navigate = CustomNavigation();
-                 navigate.navigateTo(context: context, destination: navigatePage);
-                },
-                child: Ink(
-                  decoration: customBoxDecoration(
-                    boxShape: BoxShape.circle,
-                    hasGradient: true,
-                    gradientColors: [
-                      color.withAlpha(150),
-                      color,
-                    ],
-                  ),
-                  child: ClipOval(
-                    child: Icon(
-                      icon,
-                      size: 40,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: customText(
-              text: title,
-              fontSize: 15,
-              isBold: true,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              textColor: textColor,
-            ),
-          ),
-        ],
-      ),
-    ),
   );
 }
 
@@ -395,7 +315,7 @@ Widget customTextFormField({
         controller: controller,
         focusNode: focusNode,
         keyboardType: keyboardType,
-        onChanged:onChanged,
+        onChanged: onChanged,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white24,
@@ -441,7 +361,7 @@ Widget customTextFormField({
   );
 }
 
-void customModalButton({
+Future<void>? customModalButton({
   required BuildContext context,
   required Widget builder,
   bool isScrollable = false,
@@ -458,6 +378,7 @@ void customModalButton({
       return builder;
     },
   );
+  return null;
 }
 
 Widget customExpansionTile({
@@ -714,61 +635,6 @@ Widget customSlider({
   );
 }
 
-Widget customResultBox({
-  String title = "",
-  String result = "",
-  Color borderColor = Colors.grey,
-  double borderWidth = 0.6,
-  double padding = 0,
-}) {
-  final textUtilities = TextUtilities();
-  return Padding(
-    padding: EdgeInsets.all(padding),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: customText(
-            text: title,
-            isBold: true,
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(20),
-          decoration: customBoxDecoration(
-            hasBorder: true,
-            hasGradient: true,
-            hasShadow: true,
-          ),
-          child: Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  textUtilities.copyToClipboard(
-                    text: result,
-                  );
-                },
-                icon: const Icon(
-                  Icons.copy,
-                  color: Colors.white,
-                ),
-              ),
-              Expanded(
-                child: customText(
-                  text: result,
-                  isBold: true,
-                  textColor: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
 SliverAppBar customAppbar({
   required BuildContext context,
   required String title,
@@ -817,98 +683,5 @@ SliverAppBar customAppbar({
     centerTitle: true,
     floating: true,
     automaticallyImplyLeading: false,
-  );
-}
-
-Widget blurContainer({
-  required Widget child,
-  double borderRadius = 20,
-  double xBlur = 20,
-  double yBlur = 20,
-}) {
-  return ClipRRect(
-    borderRadius: BorderRadius.circular(borderRadius),
-    child: BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: xBlur, sigmaY: yBlur),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(borderRadius),
-        ),
-        child: child,
-      ),
-    ),
-  );
-}
-
-Widget customHomepageList({
-  String title = "Text",
-  double height = 200,
-  double verticalMargin = 10,
-  double horizontalMargin = 0,
-  Color borderColor = greyBorderColor,
-  double borderRadius = 20,
-  required List<HomepageElement> pages,
-}) {
-  return Container(
-    height: height,
-    margin: EdgeInsets.symmetric(
-        vertical: verticalMargin, horizontal: horizontalMargin),
-    decoration: customBoxDecoration(
-      hasBorder: true,
-      borderWidth: 0.5,
-      borderColor: greyBorderColor,
-      hasShadow: true,
-      shadowAlphaColor: 150,
-      shadowBlurRadius: 0.4,
-      shadowOffset: const Offset(0, 3),
-      boxBorderRadius: borderRadius,
-      hasGradient: false,
-      gradientColors: [
-        Colors.grey.shade400,
-        Colors.grey.shade200,
-      ],
-      gradientBegin: Alignment.centerLeft,
-      gradientEnd: Alignment.centerRight,
-    ),
-    child: blurContainer(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20, bottom: 10),
-            child: Center(
-              child: customText(
-                text: title,
-                isBold: true,
-                fontSize: 25,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: ListView.builder(
-                itemCount: pages.length,
-                scrollDirection: Axis.horizontal,
-                physics: const ScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return homeIcon(
-                    context: context,
-                    title: pages[index].pageName,
-                    color: pages[index].pageColor,
-                    icon: pages[index].pageIcon,
-                    navigatePage: pages[index].pageWidget,
-                    size: 100,
-                    horizontalPadding: 10,
-                  );
-                },
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
   );
 }

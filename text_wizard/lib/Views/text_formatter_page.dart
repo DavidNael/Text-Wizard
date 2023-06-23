@@ -5,11 +5,11 @@ import 'package:tex_wiz/Views/options_page.dart';
 import '../Components/custom_classes.dart';
 import '../Components/ui_widgets.dart';
 import '../Constants/colors.dart';
-import '../Cubit/TextSplitter/text_splitter_cubit.dart';
-import '../Cubit/TextSplitter/text_splitter_state.dart';
+import '../Cubit/TextFormatter/text_formatter_cubit.dart';
+import '../Cubit/TextFormatter/text_formatter_state.dart';
 
-class TextSplitterPage extends StatelessWidget {
-  const TextSplitterPage({super.key});
+class TextFormatterPage extends StatelessWidget {
+  const TextFormatterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,36 +20,12 @@ class TextSplitterPage extends StatelessWidget {
     TextEditingController inputTextController = TextEditingController();
     TextEditingController outputTextController = TextEditingController();
 
-    return BlocConsumer<TextSplitterCubit, TextSplitterState>(
+    return BlocConsumer<TextFormatterCubit, TextFormatterState>(
       listener: (context, state) {},
       builder: (context, state) {
-        final cubit = TextSplitterCubit.getCubit(context);
+        final cubit = TextFormatterCubit.getCubit(context);
         final textUtilities = TextUtilities();
-        inputTextController.addListener(() {
-          outputTextController.text = cubit.textSplit(
-            text: inputTextController.text,
-            textSplit: splitTextController.text.isEmpty
-                ? " "
-                : splitTextController.text
-                    .replaceAll("\\n", "\n")
-                    .replaceAll("\\t", "\t"),
-            replaceWithText: replaceWithController.text.isEmpty
-                ? "\n"
-                : replaceWithController.text
-                    .replaceAll("\\n", "\n")
-                    .replaceAll("\\t", "\t"),
-            textPrefix: prefixTextController.text.isEmpty
-                ? ""
-                : prefixTextController.text
-                    .replaceAll("\\n", "\n")
-                    .replaceAll("\\t", "\t"),
-            textSuffix: suffixTextController.text.isEmpty
-                ? ""
-                : suffixTextController.text
-                    .replaceAll("\\n", "\n")
-                    .replaceAll("\\t", "\t"),
-          );
-        });
+        inputTextController.addListener(() {});
         return Scaffold(
           backgroundColor: backgroundColor,
           body: GestureDetector(
@@ -60,7 +36,7 @@ class TextSplitterPage extends StatelessWidget {
             child: CustomScrollView(
               slivers: [
                 // 1 AppBar
-                customAppbar(context: context, title: "Text Splitter"),
+                customAppbar(context: context, title: "Text Formatter"),
 
                 // 1 Body
                 SliverList(

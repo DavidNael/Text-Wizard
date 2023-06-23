@@ -313,6 +313,8 @@ class TextUtilities {
         wordCounts[word] = wordCounts[word]! + 1;
         if (wordCounts[word]! <= wordsToKeep) {
           output.add(word);
+        } else if (wordsToKeep == 0) {
+          output.remove(word);
         }
       } else {
         wordCounts[word] = 1;

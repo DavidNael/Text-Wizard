@@ -5,7 +5,7 @@ import '../Components/custom_classes.dart';
 import '../Components/ui_widgets.dart';
 import '../Constants/colors.dart';
 import '../Cubit/DuplicateRemover/duplicate_remover_cubit.dart';
-import '../Cubit/DuplicateRemover/duplicate_remover_states.dart';
+import '../Cubit/DuplicateRemover/duplicate_remover_state.dart';
 import 'options_page.dart';
 
 class DuplicateRemoverPage extends StatelessWidget {

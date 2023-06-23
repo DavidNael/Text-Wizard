@@ -4,6 +4,8 @@ import 'package:tex_wiz/Components/ui_widgets.dart';
 import 'package:tex_wiz/Cubit/Homepage/homepage_cubit.dart';
 import 'package:tex_wiz/Cubit/Homepage/homepage_state.dart';
 
+import '../Components/page_widgets.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({
     super.key,
@@ -112,24 +114,28 @@ class HomePage extends StatelessWidget {
                 customHomepageList(
                   title: "Text Generation",
                   pages: cubit.textGenerationPages,
+                  hasShadow: false,
                 ),
 
                 // 1 Text Manipulation
                 customHomepageList(
                   title: "Text Manipulation",
                   pages: cubit.textManipulationPages,
+                  hasShadow: false,
                 ),
 
                 // 1 Text Analysis
                 customHomepageList(
                   title: "Text Analysis",
                   pages: cubit.textAnalysisPages,
+                  hasShadow: false,
                 ),
 
                 // 1 Encoder-Decoder
                 customHomepageList(
                   title: "Encoder-Decoder",
                   pages: cubit.encodingDecodingPages,
+                  hasShadow: false,
                 ),
               ],
             ),
