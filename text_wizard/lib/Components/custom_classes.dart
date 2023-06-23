@@ -1,16 +1,32 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:tex_wiz/Components/ui_widgets.dart';
 import 'package:tex_wiz/Constants/adjectives.dart';
 import 'package:tex_wiz/Constants/adverbs.dart';
 import 'package:tex_wiz/Constants/all_words.dart';
 import 'package:tex_wiz/Constants/nouns.dart';
 import 'package:tex_wiz/Constants/possessives.dart';
 import 'package:tex_wiz/Constants/verbs.dart';
+import 'package:translator/translator.dart';
 
 import '../Constants/names.dart';
 
 class TextUtilities {
+  // 1 Singelton class
+  static final TextUtilities _instance = TextUtilities._internal();
+
+  factory TextUtilities() {
+    return _instance;
+  }
+
+  TextUtilities._internal();
+
+  // 1 Functions
   List<String> wordGenerator({
     String startWith = "",
     String endsWith = "",
@@ -200,6 +216,223 @@ class TextUtilities {
         break;
     }
     return words;
+  }
+
+  Future<String> translateText({
+    String text = "",
+    String inputLanguage = 'auto',
+    String outputLanguage = 'en',
+  }) async {
+    final translator = GoogleTranslator();
+    try {
+      var translation = await translator.translate(
+        text,
+        from: inputLanguage,
+        to: outputLanguage,
+      );
+      return translation.text;
+    } catch (e) {
+      if (e.toString() == "Failed host lookup: 'translate.googleapis.com'") {
+        return "Error: Please check your internet connection..";
+      }
+      return "Error: ${e.toString()}";
+    }
+  }
+
+  void copyToClipboard({String text = ""}) {
+    if (text.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "No Words to copy.",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        fontSize: 16.0,
+      );
+      return;
+    }
+    Clipboard.setData(
+      ClipboardData(
+        text: text,
+      ),
+    );
+    Fluttertoast.showToast(
+      msg: "Copied to clipboard.",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      fontSize: 16.0,
+    );
+  }
+
+  void shareText({String text = ""}) {
+    text.isEmpty
+        ? Fluttertoast.showToast(
+            msg: "No Words to share.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            fontSize: 16.0,
+          )
+        : Share.share(text);
+  }
+
+  List<String> getWords({required String text, String textSplit = " "}) {
+    List<String> words = [];
+    // 1 Split text into words
+    words = text.split(textSplit);
+    // 2 Remove empty words
+    words.removeWhere((word) => word.isEmpty);
+    return words;
+  }
+
+  String textSplitter({
+    required String text,
+    String replaceWithText = "\n",
+    String textPrefix = "",
+    String textSuffix = "",
+    String textSplit = " ",
+  }) {
+    List<String> words = getWords(text: text, textSplit: textSplit);
+    // 1 Add prefix and suffix to words
+    words = words.map((word) => "$textPrefix$word$textSuffix").toList();
+    // 2 Join words with splitText
+    return words.join(replaceWithText);
+  }
+
+  String duplicateRemover({
+    required String text,
+    double wordsToKeep = 1,
+  }) {
+    List<String> words = getWords(text: text);
+    List<String> output = [];
+
+    // 1 Count the occurrences of each word
+    Map<String, int> wordCounts = {};
+    for (var word in words) {
+      if (wordCounts.containsKey(word)) {
+        wordCounts[word] = wordCounts[word]! + 1;
+        if (wordCounts[word]! <= wordsToKeep) {
+          output.add(word);
+        }
+      } else {
+        wordCounts[word] = 1;
+        output.add(word);
+      }
+    }
+
+    // 2 Filter words based on occurrence count
+
+    // 3 Join words with a space
+    return output.join(" ");
+  }
+}
+
+class CustomDialogs {
+  // 1 Singelton class
+  static final CustomDialogs _instance = CustomDialogs._internal();
+  factory CustomDialogs() {
+    return _instance;
+  }
+  CustomDialogs._internal();
+
+  // 1 Dialogs
+  Future<dynamic> customShowDialog({
+    required BuildContext context,
+    required String title,
+    required String content,
+    VoidCallback? onPressed,
+  }) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: customText(
+            text: title,
+          ),
+          content: customText(
+            text: title,
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    onPressed != null ? onPressed() : null;
+                  },
+                  child: Center(
+                    child: customText(
+                      text: title,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<dynamic> customLoadingDialog({
+    required BuildContext context,
+  }) {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: Column(
+            children: [
+              customText(
+                text: "Loading...",
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const CircularProgressIndicator(),
+            ],
+          ),
+          // actions: [],
+        );
+      },
+    );
+  }
+}
+
+class CustomNavigation {
+  // 1 Singelton class
+  static final CustomNavigation _instance = CustomNavigation._internal();
+
+  factory CustomNavigation() {
+    return _instance;
+  }
+  CustomNavigation._internal();
+  // 1 Functions
+  void navigateTo(
+      {required BuildContext context, required Widget destination}) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => destination),
+    );
+  }
+
+  void navigateAndReplace({
+    required BuildContext context,
+    required Widget destination,
+  }) {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => destination),
+      (Route<dynamic> route) => false,
+    );
   }
 }
 

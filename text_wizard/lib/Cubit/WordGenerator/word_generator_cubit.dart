@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tex_wiz/Components/custom_classes.dart';
-
-part 'word_generator_state.dart';
+import 'package:tex_wiz/Cubit/WordGenerator/word_generator_state.dart';
 
 class WordGeneratorCubit extends Cubit<WordGeneratorState> {
   WordGeneratorCubit() : super(WordGeneratorInitialState());
@@ -30,7 +29,8 @@ class WordGeneratorCubit extends Cubit<WordGeneratorState> {
     String endsWith = "",
   }) {
     emit(WordGeneratorGeneratingWords());
-    words = TextUtilities().wordGenerator(
+    TextUtilities textutils = TextUtilities();
+    words = textutils.wordGenerator(
       startWith: startWith,
       endsWith: endsWith,
       wordCount: wordCountSlider.toInt(),

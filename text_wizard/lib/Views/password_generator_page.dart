@@ -4,6 +4,8 @@ import 'package:tex_wiz/Components/ui_widgets.dart';
 import 'package:tex_wiz/Constants/colors.dart';
 import 'package:tex_wiz/Cubit/PasswordGenerator/password_generator_cubit.dart';
 
+import '../Cubit/PasswordGenerator/password_generator_state.dart';
+
 class PasswordGeneratorPage extends StatelessWidget {
   const PasswordGeneratorPage({super.key});
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:tex_wiz/Components/functions.dart';
+import 'package:tex_wiz/Components/custom_classes.dart';
 import 'package:tex_wiz/Components/ui_widgets.dart';
 
 import '../Constants/colors.dart';
@@ -20,12 +20,8 @@ class NameGeneratorPage extends StatelessWidget {
 
     return BlocConsumer<NameGeneratorCubit, NameGeneratorState>(
       listener: (context, state) {
-        if (state is NameGeneratorGeneratingWords) {
-          customLoadingDialog(context: context);
-        }
-        if (state is NameGeneratorFinishedGeneratingWords) {
-          Navigator.pop(context);
-        }
+        if (state is NameGeneratorGeneratingWords) {}
+        if (state is NameGeneratorFinishedGeneratingWords) {}
         if (state is NameGeneratorGeneratedFewWords) {
           Fluttertoast.showToast(
             msg: "Couldn't generate all words.",
@@ -47,6 +43,7 @@ class NameGeneratorPage extends StatelessWidget {
       },
       builder: (context, state) {
         final cubit = NameGeneratorCubit.getCubit(context);
+        final textUtilities = TextUtilities();
         return Scaffold(
           backgroundColor: backgroundColor,
           body: CustomScrollView(
@@ -104,7 +101,7 @@ class NameGeneratorPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            copyToClipboard(
+                                            textUtilities.copyToClipboard(
                                               text: cubit.names.join("\n"),
                                             );
                                           },
@@ -119,7 +116,7 @@ class NameGeneratorPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            shareText(
+                                            textUtilities.shareText(
                                               text: cubit.names.join("\n"),
                                             );
                                           },
@@ -144,7 +141,7 @@ class NameGeneratorPage extends StatelessWidget {
                                               text: cubit.names[index],
                                               fontSize: 20,
                                               onPressed: () {
-                                                copyToClipboard(
+                                                textUtilities.copyToClipboard(
                                                   text: cubit.names[index],
                                                 );
                                               },
@@ -256,7 +253,7 @@ class NameGeneratorPage extends StatelessWidget {
                                           borderColor: Colors.grey.shade500
                                               .withAlpha(190),
                                           title:
-                                              "Word Length: ${cubit.nameLengthSlider.toInt()==0?"Any":cubit.nameLengthSlider.toInt()}",
+                                              "Word Length: ${cubit.nameLengthSlider.toInt() == 0 ? "Any" : cubit.nameLengthSlider.toInt()}",
                                           value: cubit.nameLengthSlider,
                                           onChanged: (newValue) {
                                             cubit.changeSlider(

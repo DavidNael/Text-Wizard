@@ -1,4 +1,3 @@
-part of 'sentence_generator_cubit.dart';
 
 abstract class SentenceGeneratorState {}
 

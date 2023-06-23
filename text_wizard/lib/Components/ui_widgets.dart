@@ -1,7 +1,9 @@
+import 'dart:ui';
+
 import 'package:tex_wiz/Constants/fonts.dart';
 
+import '../Constants/colors.dart';
 import 'custom_classes.dart';
-import 'functions.dart';
 import 'transition_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -163,62 +165,71 @@ Widget homeIcon({
   required Color color,
   required IconData icon,
   required Widget navigatePage,
+  Color textColor = Colors.black,
   double size = 100,
+  double horizontalPadding = 0,
+  double verticalPadding = 0,
 }) {
   Color? shadowColor = ColorTween(begin: color, end: Colors.black).lerp(0.3);
-  return FittedBox(
-    fit: BoxFit.contain,
-    child: Column(
-      children: [
-        Container(
-          width: size,
-          height: size,
-          decoration: customBoxDecoration(
-            boxShape: BoxShape.circle,
-            hasShadow: true,
-            shadowOffset: const Offset(0, 10),
-            shadowBlurRadius: 10,
-            shadowColor: shadowColor ??= Colors.grey,
-            shadowSpreadRadius: 0.3,
-          ),
-          child: Material(
-            shape: const CircleBorder(),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(40),
-              onTap: () {
-                navigateTo(context: context, destination: navigatePage);
-              },
-              child: Ink(
-                decoration: customBoxDecoration(
-                  boxShape: BoxShape.circle,
-                  hasGradient: true,
-                  gradientColors: [
-                    color.withAlpha(150),
-                    color,
-                  ],
-                ),
-                child: ClipOval(
-                  child: Icon(
-                    icon,
-                    size: 40,
-                    color: Colors.white,
+  return Padding(
+    padding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding, vertical: verticalPadding),
+    child: FittedBox(
+      fit: BoxFit.contain,
+      child: Column(
+        children: [
+          Container(
+            width: size,
+            height: size,
+            decoration: customBoxDecoration(
+              boxShape: BoxShape.circle,
+              hasShadow: true,
+              shadowOffset: const Offset(0, 10),
+              shadowBlurRadius: 10,
+              shadowColor: shadowColor ??= Colors.grey,
+              shadowSpreadRadius: 0.3,
+            ),
+            child: Material(
+              shape: const CircleBorder(),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(40),
+                onTap: () {
+                  CustomNavigation navigate = CustomNavigation();
+                 navigate.navigateTo(context: context, destination: navigatePage);
+                },
+                child: Ink(
+                  decoration: customBoxDecoration(
+                    boxShape: BoxShape.circle,
+                    hasGradient: true,
+                    gradientColors: [
+                      color.withAlpha(150),
+                      color,
+                    ],
+                  ),
+                  child: ClipOval(
+                    child: Icon(
+                      icon,
+                      size: 40,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: customText(
-            text: title,
-            fontSize: 15,
-            isBold: true,
-            textAlign: TextAlign.center,
-            maxLines: 2,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: customText(
+              text: title,
+              fontSize: 15,
+              isBold: true,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              textColor: textColor,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }
@@ -240,12 +251,12 @@ Widget customIconWidget({
 }
 
 Widget customTextDropDownMenu({
-  int selectedValue = 0,
+  dynamic selectedValue,
   double width = 180,
   double? height,
   double padding = 10,
-  List<DropdownMenuItem<int>>? items,
-  void Function(int?)? onChanged,
+  List<DropdownMenuItem<dynamic>>? items,
+  void Function(dynamic)? onChanged,
   // 1 Box Settings
   BoxShape boxShape = BoxShape.rectangle,
   Color boxColor = Colors.white,
@@ -280,7 +291,6 @@ Widget customTextDropDownMenu({
     child: Container(
       width: width,
       height: height,
-      // padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: customBoxDecoration(
         boxColor: boxColor,
         boxShape: boxShape,
@@ -306,7 +316,7 @@ Widget customTextDropDownMenu({
       alignment: Alignment.topRight,
       child: Align(
         alignment: Alignment.center,
-        child: DropdownButton<int>(
+        child: DropdownButton<dynamic>(
           underline: Container(),
           isExpanded: true,
           value: selectedValue,
@@ -321,12 +331,15 @@ Widget customTextDropDownMenu({
 
 Widget customTextFormField({
   VoidCallback? onPressed,
+  void Function(String)? onChanged,
   String label = "",
   String? hint,
   Color? titleColor,
   Color backgroundColor = Colors.white,
   Color? focusBackgroundColor,
   Color focusBorderColor = Colors.transparent,
+  bool alwaysShowHint = false,
+  bool isEnabled = true,
   double width = 180,
   double? height,
   double borderFocusedRadius = 10,
@@ -335,6 +348,7 @@ Widget customTextFormField({
   double horizontalPadding = 0,
   double? fontSize,
   double? hintFontSize,
+  int? maxLines = 1,
   TextEditingController? controller,
   FocusNode? focusNode,
   TextInputType keyboardType = TextInputType.text,
@@ -377,9 +391,11 @@ Widget customTextFormField({
       ),
       // padding: const EdgeInsets.all(10),
       child: TextFormField(
+        enabled: isEnabled,
         controller: controller,
         focusNode: focusNode,
         keyboardType: keyboardType,
+        onChanged:onChanged,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white24,
@@ -388,6 +404,8 @@ Widget customTextFormField({
             fontSize: fontSize,
           ),
           hintText: hint,
+          floatingLabelBehavior:
+              alwaysShowHint ? FloatingLabelBehavior.always : null,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(boxTopLeftBorderRadius),
@@ -412,6 +430,11 @@ Widget customTextFormField({
               color: focusBorderColor,
             ),
           ),
+        ),
+        maxLines: maxLines,
+        style: TextStyle(
+          fontSize: fontSize,
+          color: titleColor,
         ),
       ),
     ),
@@ -698,6 +721,7 @@ Widget customResultBox({
   double borderWidth = 0.6,
   double padding = 0,
 }) {
+  final textUtilities = TextUtilities();
   return Padding(
     padding: EdgeInsets.all(padding),
     child: Column(
@@ -721,7 +745,7 @@ Widget customResultBox({
             children: [
               IconButton(
                 onPressed: () {
-                  copyToClipboard(
+                  textUtilities.copyToClipboard(
                     text: result,
                   );
                 },
@@ -793,5 +817,98 @@ SliverAppBar customAppbar({
     centerTitle: true,
     floating: true,
     automaticallyImplyLeading: false,
+  );
+}
+
+Widget blurContainer({
+  required Widget child,
+  double borderRadius = 20,
+  double xBlur = 20,
+  double yBlur = 20,
+}) {
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(borderRadius),
+    child: BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: xBlur, sigmaY: yBlur),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        child: child,
+      ),
+    ),
+  );
+}
+
+Widget customHomepageList({
+  String title = "Text",
+  double height = 200,
+  double verticalMargin = 10,
+  double horizontalMargin = 0,
+  Color borderColor = greyBorderColor,
+  double borderRadius = 20,
+  required List<HomepageElement> pages,
+}) {
+  return Container(
+    height: height,
+    margin: EdgeInsets.symmetric(
+        vertical: verticalMargin, horizontal: horizontalMargin),
+    decoration: customBoxDecoration(
+      hasBorder: true,
+      borderWidth: 0.5,
+      borderColor: greyBorderColor,
+      hasShadow: true,
+      shadowAlphaColor: 150,
+      shadowBlurRadius: 0.4,
+      shadowOffset: const Offset(0, 3),
+      boxBorderRadius: borderRadius,
+      hasGradient: false,
+      gradientColors: [
+        Colors.grey.shade400,
+        Colors.grey.shade200,
+      ],
+      gradientBegin: Alignment.centerLeft,
+      gradientEnd: Alignment.centerRight,
+    ),
+    child: blurContainer(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 20, bottom: 10),
+            child: Center(
+              child: customText(
+                text: title,
+                isBold: true,
+                fontSize: 25,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: ListView.builder(
+                itemCount: pages.length,
+                scrollDirection: Axis.horizontal,
+                physics: const ScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return homeIcon(
+                    context: context,
+                    title: pages[index].pageName,
+                    color: pages[index].pageColor,
+                    icon: pages[index].pageIcon,
+                    navigatePage: pages[index].pageWidget,
+                    size: 100,
+                    horizontalPadding: 10,
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
   );
 }

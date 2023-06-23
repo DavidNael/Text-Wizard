@@ -1,4 +1,3 @@
-part of 'password_generator_cubit.dart';
 
 abstract class PasswordGeneratorState {}
 

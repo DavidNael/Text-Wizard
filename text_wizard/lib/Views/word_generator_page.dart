@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:tex_wiz/Components/functions.dart';
 import 'package:tex_wiz/Components/ui_widgets.dart';
 import 'package:tex_wiz/Cubit/WordGenerator/word_generator_cubit.dart';
 
+import '../Components/custom_classes.dart';
 import '../Constants/colors.dart';
+import '../Cubit/WordGenerator/word_generator_state.dart';
 
 class WordGeneratorPage extends StatelessWidget {
   const WordGeneratorPage({super.key});
@@ -19,12 +20,8 @@ class WordGeneratorPage extends StatelessWidget {
 
     return BlocConsumer<WordGeneratorCubit, WordGeneratorState>(
       listener: (context, state) {
-        if (state is WordGeneratorGeneratingWords) {
-          customLoadingDialog(context: context);
-        }
-        if (state is WordGeneratorFinishedGeneratingWords) {
-          Navigator.pop(context);
-        }
+        if (state is WordGeneratorGeneratingWords) {}
+        if (state is WordGeneratorFinishedGeneratingWords) {}
         if (state is WordGeneratorGeneratedFewWords) {
           Fluttertoast.showToast(
             msg: "Couldn't generate all words.",
@@ -46,6 +43,7 @@ class WordGeneratorPage extends StatelessWidget {
       },
       builder: (context, state) {
         final cubit = WordGeneratorCubit.getCubit(context);
+        final textUtilities = TextUtilities();
         return Scaffold(
           backgroundColor: backgroundColor,
           body: CustomScrollView(
@@ -103,7 +101,7 @@ class WordGeneratorPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            copyToClipboard(
+                                            textUtilities.copyToClipboard(
                                               text: cubit.words.join("\n"),
                                             );
                                           },
@@ -118,7 +116,7 @@ class WordGeneratorPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            shareText(
+                                            textUtilities.shareText(
                                               text: cubit.words.join("\n"),
                                             );
                                           },
@@ -143,7 +141,7 @@ class WordGeneratorPage extends StatelessWidget {
                                               text: cubit.words[index],
                                               fontSize: 20,
                                               onPressed: () {
-                                                copyToClipboard(
+                                                textUtilities.copyToClipboard(
                                                   text: cubit.words[index],
                                                 );
                                               },

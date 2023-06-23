@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tex_wiz/Components/functions.dart';
 import 'package:tex_wiz/Components/ui_widgets.dart';
 import 'package:tex_wiz/Cubit/SentenceGenerator/sentence_generator_cubit.dart';
 import 'package:word_generator/word_generator.dart';
+
+import '../Components/custom_classes.dart';
+import '../Cubit/SentenceGenerator/sentence_generator_state.dart';
 
 class SentenceGeneratorPage extends StatelessWidget {
   const SentenceGeneratorPage({super.key});
@@ -15,6 +17,7 @@ class SentenceGeneratorPage extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         final cubit = SentenceGeneratorCubit.getCubit(context);
+        final textUtilities = TextUtilities();
         return Scaffold(
           backgroundColor: Colors.grey.shade300,
           body: CustomScrollView(
@@ -63,7 +66,7 @@ class SentenceGeneratorPage extends StatelessWidget {
                                     alignment: Alignment.centerRight,
                                     child: IconButton(
                                       onPressed: () {
-                                        copyToClipboard(
+                                        textUtilities.copyToClipboard(
                                           text: cubit.sentence,
                                         );
                                       },
@@ -78,7 +81,7 @@ class SentenceGeneratorPage extends StatelessWidget {
                                     alignment: Alignment.centerRight,
                                     child: IconButton(
                                       onPressed: () {
-                                        shareText(
+                                        textUtilities.shareText(
                                           text: cubit.sentence,
                                         );
                                       },
@@ -103,7 +106,7 @@ class SentenceGeneratorPage extends StatelessWidget {
                                         text: cubit.sentence,
                                         fontSize: 20,
                                         onPressed: () {
-                                          copyToClipboard(
+                                          textUtilities.copyToClipboard(
                                             text: cubit.sentence,
                                           );
                                         },

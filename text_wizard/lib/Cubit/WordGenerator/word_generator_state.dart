@@ -1,4 +1,3 @@
-part of 'word_generator_cubit.dart';
 
 abstract class WordGeneratorState {}
 

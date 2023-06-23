@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tex_wiz/Components/custom_classes.dart';
+import 'package:tex_wiz/Cubit/SentenceGenerator/sentence_generator_state.dart';
 
-part 'sentence_generator_state.dart';
 
 class SentenceGeneratorCubit extends Cubit<SentenceGeneratorState> {
   SentenceGeneratorCubit() : super(SentenceGeneratorInitialState());

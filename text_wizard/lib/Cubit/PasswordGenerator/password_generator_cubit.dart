@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tex_wiz/Cubit/PasswordGenerator/password_generator_state.dart';
 
 import '../../Components/custom_classes.dart';
 
-part 'password_generator_state.dart';
 
 class PasswordGeneratorCubit extends Cubit<PasswordGeneratorState> {
   PasswordGeneratorCubit() : super(PasswordGeneratorInitialState());
