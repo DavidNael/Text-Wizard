@@ -276,12 +276,24 @@ class TextUtilities {
         : Share.share(text);
   }
 
-  List<String> getWords({required String text, String textSplit = " "}) {
+  List<String> getWords({
+    required String text,
+    String textSplit = " ",
+    bool ignoreSpaces = true,
+    bool ignoreNewLines = true,
+  }) {
     List<String> words = [];
-    // 1 Split text into words
+    // 1 Remove New Lines
+    if (ignoreNewLines) {
+      text.replaceAll("\n", " ");
+      print(text);
+    }
+    // 2 Split text into words
     words = text.split(textSplit);
-    // 2 Remove empty words
-    words.removeWhere((word) => word.isEmpty);
+    // 3 Remove empty words
+    if (ignoreSpaces) {
+      words.removeWhere((word) => word.isEmpty);
+    }
     return words;
   }
 
@@ -326,6 +338,204 @@ class TextUtilities {
 
     // 3 Join words with a space
     return output.join(" ");
+  }
+
+  String caseConverter({
+    String text = "",
+    int inputCaseType = 0,
+    int outputCaseType = 1,
+  }) {
+    List<String> textList = getWords(text: text);
+    String result = "";
+    switch (outputCaseType) {
+      // 1 Lower Case
+      case 0:
+        {
+          result = text.toLowerCase();
+          break;
+        }
+      // 2 Upper Case
+      case 1:
+        {
+          result = text.toUpperCase();
+          break;
+        }
+      // 3 Title Case
+      case 2:
+        {
+          List<String> exceptionWords = [
+            'a',
+            'an',
+            'the',
+            'and',
+            'or',
+            'but',
+            'in',
+            'on',
+            'for',
+            'up',
+            "to",
+            "with",
+            "by",
+            "from",
+            "of",
+          ];
+
+          for (int i = 0; i < textList.length; i++) {
+            if (textList[i].isNotEmpty &&
+                !exceptionWords.contains(textList[i].toLowerCase())) {
+              textList[i] =
+                  textList[i][0].toUpperCase() + textList[i].substring(1);
+            }
+          }
+          result = textList.join(" ");
+          break;
+        }
+      // 4 Sentence Case
+      case 3:
+        {
+          for (int i = 0; i < textList.length; i++) {
+            if (textList[i].isNotEmpty) {
+              textList[i] = textList[i][0].toUpperCase() +
+                  textList[i].substring(1).toLowerCase();
+            }
+          }
+          result = textList.join('. ');
+          break;
+        }
+      // 5 Alternating Case
+      case 4:
+        {
+          for (int i = 0; i < textList.length; i++) {
+            String word = textList[i];
+            List<String> characters = word.split('');
+
+            for (int j = 0; j < characters.length; j++) {
+              if (j % 2 == 0) {
+                characters[j] = characters[j].toUpperCase();
+              } else {
+                characters[j] = characters[j].toLowerCase();
+              }
+            }
+
+            textList[i] = characters.join('');
+          }
+
+          result = textList.join(' ');
+          break;
+        }
+      // 6 Random Case
+      case 5:
+        {
+          for (int i = 0; i < textList.length; i++) {
+            String word = textList[i];
+            List<String> characters = word.split('');
+            for (int j = 0; j < characters.length; j++) {
+              bool isUpperCase = Random().nextBool();
+              if (isUpperCase) {
+                characters[j] = characters[j].toUpperCase();
+              } else {
+                characters[j] = characters[j].toLowerCase();
+              }
+            }
+
+            textList[i] = characters.join('');
+          }
+
+          result = textList.join(' ');
+          break;
+        }
+      // 7 Camel Case
+      case 6:
+        {
+          for (int i = 0; i < textList.length; i++) {
+            if (i != 0) {
+              textList[i] =
+                  textList[i][0].toUpperCase() + textList[i].substring(1);
+            }
+          }
+          result = textList.join("");
+          break;
+        }
+      // 8 Snake Case
+      case 7:
+        {
+          result = text.replaceAll(' ', '_').toLowerCase();
+          break;
+        }
+      // 9 Kebab Case
+      case 8:
+        {
+          result = text.replaceAll(' ', '-').toLowerCase();
+          break;
+        }
+      // 10 Pascal Case
+      case 9:
+        {
+          for (int i = 0; i < textList.length; i++) {
+            textList[i] =
+                textList[i][0].toUpperCase() + textList[i].substring(1);
+          }
+          result = textList.join("");
+          break;
+        }
+    }
+    return result;
+  }
+
+  String lineLimiter({
+    String text = "",
+    int limit = 10,
+    bool shouldCutWord = false,
+  }) {
+    List<String> words = getWords(text: text);
+    String result = "";
+    int currentLineLength = 0;
+    for (int i = 0; i < words.length; i++) {
+      int addingWordLength = (currentLineLength + words[i].length);
+      int wordLength = words[i].length;
+      if (addingWordLength < limit) {
+        result += "${words[i]} ";
+        currentLineLength += wordLength + 1;
+      } else if (addingWordLength == limit) {
+        result += "${words[i]}\n";
+        currentLineLength = 0;
+      } else {
+        if (shouldCutWord) {
+          int cutOffset = limit - currentLineLength;
+          result += "${words[i].substring(0, cutOffset)}\n";
+          int currentOffset = cutOffset;
+          int afterCutWordLength = wordLength - cutOffset;
+          for (int j = 0; j < (afterCutWordLength + limit) ~/ limit; j++) {
+            if (currentOffset + limit <= afterCutWordLength) {
+              result +=
+                  "${words[i].substring(currentOffset, currentOffset + limit)}\n";
+              currentOffset += limit;
+            } else if (afterCutWordLength % limit == 0) {
+              result += "${words[i].substring(currentOffset)}\n";
+              currentOffset = 0;
+              break;
+            } else {
+              result += "${words[i].substring(currentOffset)} ";
+              currentLineLength = (afterCutWordLength % limit) + 1;
+              if (words[i] == "bobsledding") {
+                print(currentLineLength);
+              }
+              break;
+            }
+          }
+        } else {
+          if (currentLineLength <= limit) {
+            result += "\n${words[i]} ";
+            currentLineLength = wordLength;
+          } else {
+            result += "${words[i]} ";
+            currentLineLength = wordLength + 1;
+          }
+        }
+      }
+    }
+    return result;
   }
 }
 

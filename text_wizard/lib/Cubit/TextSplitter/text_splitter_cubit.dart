@@ -6,6 +6,8 @@ class TextSplitterCubit extends Cubit<TextSplitterState> {
   TextSplitterCubit() : super(TextSplitterInitialState());
   static TextSplitterCubit getCubit(context) => BlocProvider.of(context);
 
+  
+
   String textSplit({
     required String text,
     String replaceWithText = "\n",

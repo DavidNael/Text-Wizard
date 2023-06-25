@@ -13,19 +13,24 @@ class CaseConverterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController splitTextController = TextEditingController();
-    TextEditingController replaceWithController = TextEditingController();
-    TextEditingController prefixTextController = TextEditingController();
-    TextEditingController suffixTextController = TextEditingController();
     TextEditingController inputTextController = TextEditingController();
     TextEditingController outputTextController = TextEditingController();
+    final cubit = CaseConverterCubit.getCubit(context);
 
     return BlocConsumer<CaseConverterCubit, CaseConverterState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is CaseConverterOptionChange) {
+          outputTextController.text =
+              cubit.convertCase(text: inputTextController.text);
+        }
+      },
       builder: (context, state) {
-        final cubit = CaseConverterCubit.getCubit(context);
         final textUtilities = TextUtilities();
-        inputTextController.addListener(() {});
+        inputTextController.addListener(() {
+          outputTextController.text =
+              cubit.convertCase(text: inputTextController.text);
+        });
+
         return Scaffold(
           backgroundColor: backgroundColor,
           body: GestureDetector(
@@ -90,168 +95,8 @@ class CaseConverterPage extends StatelessWidget {
                                                 CustomNavigation();
                                             navigate.navigateTo(
                                               context: context,
-                                              destination: OptionsPage(
-                                                pageOptions:
-                                                    // 1 Text Options Container
-                                                    Container(
-                                                  margin: const EdgeInsets
-                                                      .symmetric(
-                                                    vertical: 15,
-                                                  ),
-                                                  decoration:
-                                                      customBoxDecoration(
-                                                    boxTopLeftBorderRadius: 25,
-                                                    boxBottomRightBorderRadius:
-                                                        25,
-                                                    hasBorder: true,
-                                                    borderWidth: 0.5,
-                                                    borderColor:
-                                                        greyBorderColor,
-                                                    hasShadow: true,
-                                                    shadowAlphaColor: 150,
-                                                    shadowBlurRadius: 0.1,
-                                                    shadowOffset:
-                                                        const Offset(3, 2),
-                                                  ),
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    vertical: 15,
-                                                    horizontal: 10,
-                                                  ),
-                                                  child: Column(
-                                                    children: [
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        children: [
-                                                          customTextFormField(
-                                                            label:
-                                                                "Split Text at",
-                                                            hint:
-                                                                "Default: Space",
-                                                            controller:
-                                                                splitTextController,
-                                                            verticalPadding: 10,
-                                                            boxTopLeftBorderRadius:
-                                                                15,
-                                                            boxBottomRightBorderRadius:
-                                                                15,
-                                                            borderWidth: 0.5,
-                                                            borderColor: Colors
-                                                                .black
-                                                                .withAlpha(150),
-                                                            borderFocusedWidth:
-                                                                0.5,
-                                                            focusBorderColor:
-                                                                Colors
-                                                                    .black
-                                                                    .withAlpha(
-                                                                        150),
-                                                            hasShadow: true,
-                                                            shadowAlphaColor:
-                                                                150,
-                                                            shadowBlurRadius:
-                                                                0.1,
-                                                          ),
-                                                          customTextFormField(
-                                                            label:
-                                                                "Replace With",
-                                                            hint: "\\n",
-                                                            controller:
-                                                                replaceWithController,
-                                                            verticalPadding: 10,
-                                                            maxLines: null,
-                                                            boxTopLeftBorderRadius:
-                                                                15,
-                                                            boxBottomRightBorderRadius:
-                                                                15,
-                                                            borderWidth: 0.5,
-                                                            borderColor: Colors
-                                                                .black
-                                                                .withAlpha(150),
-                                                            borderFocusedWidth:
-                                                                0.5,
-                                                            focusBorderColor:
-                                                                Colors
-                                                                    .black
-                                                                    .withAlpha(
-                                                                        150),
-                                                            hasShadow: true,
-                                                            shadowAlphaColor:
-                                                                150,
-                                                            shadowBlurRadius:
-                                                                0.1,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        children: [
-                                                          customTextFormField(
-                                                            label: "Prefix",
-                                                            hint:
-                                                                "example: Start",
-                                                            controller:
-                                                                prefixTextController,
-                                                            verticalPadding: 10,
-                                                            boxTopLeftBorderRadius:
-                                                                15,
-                                                            boxBottomRightBorderRadius:
-                                                                15,
-                                                            borderWidth: 0.5,
-                                                            borderColor: Colors
-                                                                .black
-                                                                .withAlpha(150),
-                                                            borderFocusedWidth:
-                                                                0.5,
-                                                            focusBorderColor:
-                                                                Colors
-                                                                    .black
-                                                                    .withAlpha(
-                                                                        150),
-                                                            hasShadow: true,
-                                                            shadowAlphaColor:
-                                                                150,
-                                                            shadowBlurRadius:
-                                                                0.1,
-                                                          ),
-                                                          customTextFormField(
-                                                            label:
-                                                                "Suffix Text",
-                                                            hint:
-                                                                "example: End",
-                                                            controller:
-                                                                suffixTextController,
-                                                            verticalPadding: 10,
-                                                            boxTopLeftBorderRadius:
-                                                                15,
-                                                            boxBottomRightBorderRadius:
-                                                                15,
-                                                            borderWidth: 0.5,
-                                                            borderColor: Colors
-                                                                .black
-                                                                .withAlpha(150),
-                                                            borderFocusedWidth:
-                                                                0.5,
-                                                            focusBorderColor:
-                                                                Colors
-                                                                    .black
-                                                                    .withAlpha(
-                                                                        150),
-                                                            hasShadow: true,
-                                                            shadowAlphaColor:
-                                                                150,
-                                                            shadowBlurRadius:
-                                                                0.1,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
+                                              destination: const OptionsPage(
+                                                pageOptions: Placeholder(),
                                               ),
                                             );
                                           },
@@ -262,6 +107,54 @@ class CaseConverterPage extends StatelessWidget {
                                         ),
                                       ),
                                     ],
+                                  ),
+                                  FittedBox(
+                                    child: Row(
+                                      children: [
+                                        // 1 Input Language Field
+                                        customTextDropDownMenu(
+                                          selectedValue: cubit.inputCase,
+                                          borderColor:
+                                              Colors.black.withAlpha(150),
+                                          borderWidth: 0.3,
+                                          boxTopLeftBorderRadius: 15,
+                                          boxBottomRightBorderRadius: 15,
+                                          hasShadow: true,
+                                          shadowAlphaColor: 150,
+                                          shadowBlurRadius: 0.1,
+                                          items: cubit.dropdownItems,
+                                          onChanged: (newValue) {
+                                            cubit.updateCase(
+                                              newInputCase: newValue,
+                                            );
+                                          },
+                                        ),
+
+                                        // 1 Swap Languages Button
+                                        IconButton(
+                                          icon: const Icon(Icons.arrow_forward),
+                                          onPressed: () async {},
+                                        ),
+
+                                        // 1 Output language Field
+                                        customTextDropDownMenu(
+                                            selectedValue: cubit.outputCase,
+                                            borderColor:
+                                                Colors.black.withAlpha(150),
+                                            borderWidth: 0.3,
+                                            boxTopLeftBorderRadius: 15,
+                                            boxBottomRightBorderRadius: 15,
+                                            hasShadow: true,
+                                            shadowAlphaColor: 150,
+                                            shadowBlurRadius: 0.1,
+                                            items: cubit.dropdownItems,
+                                            onChanged: (newValue) {
+                                              cubit.updateCase(
+                                                newOutputCase: newValue,
+                                              );
+                                            }),
+                                      ],
+                                    ),
                                   ),
                                   // 1 Input Text Field
                                   SizedBox(

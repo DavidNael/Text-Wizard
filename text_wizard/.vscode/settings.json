@@ -1,4 +1,5 @@
 {
   "betterFolding.showOnlyRegionsDescriptions": true,
-  "editor.foldingStrategy": "indentation"
+  "editor.foldingStrategy": "indentation",
+  "java.configuration.updateBuildConfiguration": "interactive"
 }

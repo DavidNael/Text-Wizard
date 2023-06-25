@@ -19,11 +19,22 @@ class WordTranslatorPage extends StatelessWidget {
     FocusNode endWithFocusNode = FocusNode();
     const Duration debounceDelay = Duration(milliseconds: 300);
     Timer? debounceTimer;
+    final cubit = WordTranslatorCubit.getCubit(context);
+    final textUtilities = TextUtilities();
     return BlocConsumer<WordTranslatorCubit, WordTranslatorState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is WordTranslatorOptionChange) {
+          if (debounceTimer?.isActive ?? false) {
+            debounceTimer!.cancel();
+          }
+          debounceTimer = Timer(debounceDelay, () async {
+            if (inputTextController.text.isNotEmpty) {
+              outputTextController.text = await cubit.translateText();
+            }
+          });
+        }
+      },
       builder: (context, state) {
-        final cubit = WordTranslatorCubit.getCubit(context);
-        final textUtilities = TextUtilities();
         inputTextController.addListener(() {
           if (debounceTimer?.isActive ?? false) {
             debounceTimer!.cancel();

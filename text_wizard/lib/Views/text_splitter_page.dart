@@ -20,12 +20,138 @@ class TextSplitterPage extends StatelessWidget {
     TextEditingController inputTextController = TextEditingController();
     TextEditingController outputTextController = TextEditingController();
 
+    final cubit = TextSplitterCubit.getCubit(context);
+    final textUtilities = TextUtilities();
     return BlocConsumer<TextSplitterCubit, TextSplitterState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is TextSplitterOptionChange) {
+          cubit.textSplit(
+            text: inputTextController.text,
+            textSplit: splitTextController.text.isEmpty
+                ? " "
+                : splitTextController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+            replaceWithText: replaceWithController.text.isEmpty
+                ? "\n"
+                : replaceWithController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+            textPrefix: prefixTextController.text.isEmpty
+                ? ""
+                : prefixTextController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+            textSuffix: suffixTextController.text.isEmpty
+                ? ""
+                : suffixTextController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+          );
+        }
+      },
       builder: (context, state) {
-        final cubit = TextSplitterCubit.getCubit(context);
-        final textUtilities = TextUtilities();
         inputTextController.addListener(() {
+          outputTextController.text = cubit.textSplit(
+            text: inputTextController.text,
+            textSplit: splitTextController.text.isEmpty
+                ? " "
+                : splitTextController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+            replaceWithText: replaceWithController.text.isEmpty
+                ? "\n"
+                : replaceWithController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+            textPrefix: prefixTextController.text.isEmpty
+                ? ""
+                : prefixTextController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+            textSuffix: suffixTextController.text.isEmpty
+                ? ""
+                : suffixTextController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+          );
+        });
+        splitTextController.addListener(() {
+          outputTextController.text = cubit.textSplit(
+            text: inputTextController.text,
+            textSplit: splitTextController.text.isEmpty
+                ? " "
+                : splitTextController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+            replaceWithText: replaceWithController.text.isEmpty
+                ? "\n"
+                : replaceWithController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+            textPrefix: prefixTextController.text.isEmpty
+                ? ""
+                : prefixTextController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+            textSuffix: suffixTextController.text.isEmpty
+                ? ""
+                : suffixTextController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+          );
+        });
+        replaceWithController.addListener(() {
+          outputTextController.text = cubit.textSplit(
+            text: inputTextController.text,
+            textSplit: splitTextController.text.isEmpty
+                ? " "
+                : splitTextController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+            replaceWithText: replaceWithController.text.isEmpty
+                ? "\n"
+                : replaceWithController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+            textPrefix: prefixTextController.text.isEmpty
+                ? ""
+                : prefixTextController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+            textSuffix: suffixTextController.text.isEmpty
+                ? ""
+                : suffixTextController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+          );
+        });
+        prefixTextController.addListener(() {
+          outputTextController.text = cubit.textSplit(
+            text: inputTextController.text,
+            textSplit: splitTextController.text.isEmpty
+                ? " "
+                : splitTextController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+            replaceWithText: replaceWithController.text.isEmpty
+                ? "\n"
+                : replaceWithController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+            textPrefix: prefixTextController.text.isEmpty
+                ? ""
+                : prefixTextController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+            textSuffix: suffixTextController.text.isEmpty
+                ? ""
+                : suffixTextController.text
+                    .replaceAll("\\n", "\n")
+                    .replaceAll("\\t", "\t"),
+          );
+        });
+        suffixTextController.addListener(() {
           outputTextController.text = cubit.textSplit(
             text: inputTextController.text,
             textSplit: splitTextController.text.isEmpty
