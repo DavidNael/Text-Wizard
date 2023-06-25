@@ -283,14 +283,13 @@ class TextUtilities {
     bool ignoreNewLines = true,
   }) {
     List<String> words = [];
-    // 1 Remove New Lines
+    // 1 Split text into words
     if (ignoreNewLines) {
-      text.replaceAll("\n", " ");
-      print(text);
+      words = text.split(RegExp(r' |\n'));
+    } else {
+      words = text.split(textSplit);
     }
-    // 2 Split text into words
-    words = text.split(textSplit);
-    // 3 Remove empty words
+    // 2 Remove empty words
     if (ignoreSpaces) {
       words.removeWhere((word) => word.isEmpty);
     }
@@ -507,31 +506,23 @@ class TextUtilities {
           int currentOffset = cutOffset;
           int afterCutWordLength = wordLength - cutOffset;
           for (int j = 0; j < (afterCutWordLength + limit) ~/ limit; j++) {
-            if (currentOffset + limit <= afterCutWordLength) {
+            if (currentOffset + limit < wordLength) {
               result +=
                   "${words[i].substring(currentOffset, currentOffset + limit)}\n";
               currentOffset += limit;
             } else if (afterCutWordLength % limit == 0) {
               result += "${words[i].substring(currentOffset)}\n";
-              currentOffset = 0;
+              currentLineLength = 0;
               break;
             } else {
               result += "${words[i].substring(currentOffset)} ";
               currentLineLength = (afterCutWordLength % limit) + 1;
-              if (words[i] == "bobsledding") {
-                print(currentLineLength);
-              }
               break;
             }
           }
         } else {
-          if (currentLineLength <= limit) {
-            result += "\n${words[i]} ";
-            currentLineLength = wordLength;
-          } else {
-            result += "${words[i]} ";
-            currentLineLength = wordLength + 1;
-          }
+          result += "\n${words[i]} ";
+          currentLineLength = wordLength;
         }
       }
     }

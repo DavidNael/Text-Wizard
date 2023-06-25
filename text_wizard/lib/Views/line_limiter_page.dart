@@ -178,6 +178,7 @@ class LineLimiterPage extends StatelessWidget {
                                       hint: "Enter Text",
                                       alwaysShowHint: true,
                                       maxLines: null,
+                                      keyboardType: TextInputType.multiline,
                                     ),
                                   ),
                                 ],
