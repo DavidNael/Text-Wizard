@@ -287,7 +287,10 @@ class TextUtilities {
     if (ignoreNewLines) {
       words = text.split(RegExp(r' |\n'));
     } else {
-      words = text.split(textSplit);
+      final newString = text.replaceAll("\n", " \n ");
+      words = newString.split(" ");
+
+      print("words: $words");
     }
     // 2 Remove empty words
     if (ignoreSpaces) {
@@ -521,10 +524,33 @@ class TextUtilities {
             }
           }
         } else {
-          result += "\n${words[i]} ";
+          result += currentLineLength != 0 ? "\n${words[i]} " : "${words[i]} ";
           currentLineLength = wordLength;
         }
       }
+    }
+    return result;
+  }
+
+  String reverseText({
+    String text = "",
+    bool reverseCharacters = false,
+    bool ignoreSpaces = true,
+    bool ignoreNewLines = true,
+  }) {
+    List<String> words = getWords(
+      text: text,
+      ignoreSpaces: ignoreSpaces,
+      ignoreNewLines: ignoreNewLines,
+    );
+    String result = "";
+    for (int i = words.length - 1; i >= 0; i--) {
+      if (reverseCharacters) {
+        List<String> characters = words[i].split('');
+        characters = characters.reversed.toList();
+        words[i] = characters.join('');
+      }
+      result += words[i] == '\n' ? words[i] : "${words[i]} ";
     }
     return result;
   }
