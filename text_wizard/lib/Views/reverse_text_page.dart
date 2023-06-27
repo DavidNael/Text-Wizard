@@ -13,10 +13,6 @@ class ReverseTextPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController splitTextController = TextEditingController();
-    TextEditingController replaceWithController = TextEditingController();
-    TextEditingController prefixTextController = TextEditingController();
-    TextEditingController suffixTextController = TextEditingController();
     TextEditingController inputTextController = TextEditingController();
     TextEditingController outputTextController = TextEditingController();
 

@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
       builder: (context, state) {
         final cubit = HomepageCubit.getCubit(mainContext);
         return Scaffold(
-          backgroundColor: Colors.grey[500],
+          backgroundColor: Colors.grey[200],
           drawer: Drawer(
             backgroundColor: Colors.black.withAlpha(50),
           ),

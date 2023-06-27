@@ -289,8 +289,6 @@ class TextUtilities {
     } else {
       final newString = text.replaceAll("\n", " \n ");
       words = newString.split(" ");
-
-      print("words: $words");
     }
     // 2 Remove empty words
     if (ignoreSpaces) {
@@ -554,6 +552,32 @@ class TextUtilities {
     }
     return result;
   }
+
+  String textRemover({
+    String text = "",
+    String key = "",
+    bool caseSensitive = false,
+    bool matchKey = false,
+    bool ignoreSpaces = false,
+    bool ignoreNewLines = false,
+  }) {
+    List<String> words = getWords(
+      text: text,
+      ignoreSpaces: ignoreSpaces,
+      ignoreNewLines: ignoreNewLines,
+    );
+    String result = "";
+    String currentKey = caseSensitive ? key : key.toLowerCase();
+    for (int i = 0; i < words.length; i++) {
+      String currentWord = caseSensitive ? words[i] : words[i].toLowerCase();
+      if (currentWord != currentKey) {
+        if (matchKey || (!matchKey && !currentWord.contains(currentKey))) {
+          result += "${words[i]} ";
+        }
+      }
+    }
+    return result;
+  }
 }
 
 class CustomDialogs {
@@ -697,11 +721,13 @@ class HomepageElement {
   String pageName;
   Widget pageWidget;
   IconData pageIcon;
+  IconData? pageIcon2;
   Color pageColor;
   HomepageElement({
     required this.pageName,
     required this.pageWidget,
     required this.pageIcon,
     required this.pageColor,
+    this.pageIcon2,
   });
 }

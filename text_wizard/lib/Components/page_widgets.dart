@@ -12,6 +12,7 @@ Widget homeIcon({
   required Color color,
   required IconData icon,
   required Widget navigatePage,
+  IconData? icon2,
   Color textColor = Colors.black,
   double size = 100,
   double horizontalPadding = 0,
@@ -42,7 +43,8 @@ Widget homeIcon({
                 borderRadius: BorderRadius.circular(40),
                 onTap: () {
                   CustomNavigation navigate = CustomNavigation();
-                 navigate.navigateTo(context: context, destination: navigatePage);
+                  navigate.navigateTo(
+                      context: context, destination: navigatePage);
                 },
                 child: Ink(
                   decoration: customBoxDecoration(
@@ -54,10 +56,21 @@ Widget homeIcon({
                     ],
                   ),
                   child: ClipOval(
-                    child: Icon(
-                      icon,
-                      size: 40,
-                      color: Colors.white,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          icon,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                        if (icon2 != null)
+                          Icon(
+                            icon2,
+                            size: 40,
+                            color: Colors.white,
+                          ),
+                      ],
                     ),
                   ),
                 ),
@@ -165,7 +178,7 @@ Widget customHomepageList({
   double borderRadius = 20,
   required List<HomepageElement> pages,
 
-    // 1 Box Settings
+  // 1 Box Settings
   BoxShape boxShape = BoxShape.rectangle,
   Color boxColor = Colors.white,
   double? boxBorderRadius,
@@ -196,7 +209,9 @@ Widget customHomepageList({
   return Container(
     height: height,
     margin: EdgeInsets.symmetric(
-        vertical: verticalMargin, horizontal: horizontalMargin),
+      vertical: verticalMargin,
+      horizontal: horizontalMargin,
+    ),
     decoration: customBoxDecoration(
       hasBorder: true,
       borderWidth: 0.5,
@@ -242,6 +257,7 @@ Widget customHomepageList({
                     title: pages[index].pageName,
                     color: pages[index].pageColor,
                     icon: pages[index].pageIcon,
+                    icon2: pages[index].pageIcon2,
                     navigatePage: pages[index].pageWidget,
                     size: 100,
                     horizontalPadding: 10,

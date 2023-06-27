@@ -3,7 +3,7 @@ import 'package:tex_wiz/Cubit/CaseConverter/case_converter_cubit.dart';
 import 'package:tex_wiz/Cubit/DuplicateRemover/duplicate_remover_cubit.dart';
 import 'package:tex_wiz/Cubit/LineLimiter/line_limiter_cubit.dart';
 import 'package:tex_wiz/Cubit/ReverseText/reverse_text_cubit.dart';
-import 'package:tex_wiz/Cubit/SentenceRemover/sentence_remover_cubit.dart';
+import 'package:tex_wiz/Cubit/TextRemover/text_remover_cubit.dart';
 import 'package:tex_wiz/Cubit/SpaceIncreaser/space_increaser_cubit.dart';
 import 'package:tex_wiz/Cubit/SpaceReplacer/space_replacer_cubit.dart';
 import 'package:tex_wiz/Cubit/TextFormatter/text_formatter_cubit.dart';
@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
           create: (context) => ReverseTextCubit(),
         ),
         BlocProvider(
-          create: (context) => SentenceRemoverCubit(),
+          create: (context) => TextRemoverCubit(),
         ),
         BlocProvider(
           create: (context) => SpaceReplacerCubit(),

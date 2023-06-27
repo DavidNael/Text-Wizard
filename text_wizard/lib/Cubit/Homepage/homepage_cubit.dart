@@ -11,7 +11,7 @@ import 'package:tex_wiz/Views/duplicate_remover_page.dart';
 import 'package:tex_wiz/Views/line_limiter_page.dart';
 import 'package:tex_wiz/Views/name_generator_page.dart';
 import 'package:tex_wiz/Views/reverse_text_page.dart';
-import 'package:tex_wiz/Views/sentence_remover_page.dart';
+import 'package:tex_wiz/Views/text_remover_page.dart';
 import 'package:tex_wiz/Views/space_increaser_page.dart';
 import 'package:tex_wiz/Views/space_replacer_page.dart';
 import 'package:tex_wiz/Views/text_replacer_page.dart';
@@ -39,6 +39,7 @@ class HomepageCubit extends Cubit<HomepageStates> {
       pageName: "Sentence\nGenerator",
       pageWidget: const SentenceGeneratorPage(),
       pageIcon: Icons.numbers,
+      pageIcon2: Icons.numbers,
       pageColor: Colors.green.shade800,
     ),
     HomepageElement(
@@ -70,32 +71,33 @@ class HomepageCubit extends Cubit<HomepageStates> {
     HomepageElement(
       pageName: "Duplicate\nRemover",
       pageWidget: const DuplicateRemoverPage(),
-      pageIcon: Icons.format_strikethrough_outlined,
-      pageColor: Colors.teal.shade800,
+      pageIcon: Icons.abc_rounded,
+      pageIcon2: Icons.abc_rounded,
+      pageColor: Colors.amber.shade800,
+    ),
+    HomepageElement(
+      pageName: "Text\nRemover",
+      pageWidget: const TextRemoverPage(),
+      pageIcon: Icons.format_clear_rounded,
+      pageColor: Colors.blue.shade800,
     ),
     HomepageElement(
       pageName: "Text\nSplitter",
       pageWidget: const TextSplitterPage(),
-      pageIcon: Icons.text_snippet,
-      pageColor: Colors.grey.shade800,
+      pageIcon: Icons.call_split,
+      pageColor: Colors.brown.shade800,
     ),
     HomepageElement(
       pageName: "Line\nLimiter",
       pageWidget: const LineLimiterPage(),
-      pageIcon: Icons.emoji_emotions,
-      pageColor: Colors.teal.shade800,
+      pageIcon: Icons.format_list_numbered_outlined,
+      pageColor: Colors.yellow.shade800,
     ),
     HomepageElement(
       pageName: "Reverse\nText",
       pageWidget: const ReverseTextPage(),
-      pageIcon: Icons.emoji_emotions,
-      pageColor: Colors.teal.shade800,
-    ),
-    HomepageElement(
-      pageName: "Sentence\nRemover",
-      pageWidget: const SentenceRemoverPage(),
-      pageIcon: Icons.emoji_emotions,
-      pageColor: Colors.teal.shade800,
+      pageIcon: Icons.fast_rewind_rounded,
+      pageColor: Colors.lime.shade800,
     ),
     HomepageElement(
       pageName: "Space\nReplacer",
