@@ -67,35 +67,39 @@ class HomePage extends StatelessWidget {
                               children: [
                                 //1 Avatar
                                 Container(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: const CircleAvatar(
-                                    radius: 50,
-                                    backgroundColor: Colors.white,
-                                    child: Icon(
-                                      Icons.person,
-                                      size: 90,
-                                      color: Colors.blue,
-                                    ),
+                                  height: 100,
+                                  width: 100,
+                                  margin: const EdgeInsets.only(right: 20),
+                                  padding: const EdgeInsets.only(
+                                    left: 10,
+                                    top: 10,
+                                    right: 10,
+                                  ),
+                                  decoration: customBoxDecoration(
+                                    boxShape: BoxShape.circle,
+                                    boxColor: Colors.black.withAlpha(100),
+                                  ),
+                                  child: Image.asset(
+                                    "assets/images/App Icon.png",
+                                    fit: BoxFit.contain,
                                   ),
                                 ),
+
                                 //1 Username
-                                const Column(
+                                Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "Welcome Back..",
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.white,
-                                      ),
+                                    customText(
+                                      text: "Welcome To..",
+                                      fontSize: 15,
+                                      textColor: Colors.white,
                                     ),
-                                    Text(
-                                      "David Nael",
-                                      style: TextStyle(
-                                        fontSize: 35,
-                                        color: Colors.white,
-                                      ),
+                                    customText(
+                                      text: "Tex Wiz",
+                                      fontSize: 35,
+                                      textColor: Colors.white,
+                                      isBold: true,
                                     ),
                                   ],
                                 ),
