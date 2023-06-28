@@ -592,6 +592,24 @@ class TextUtilities {
 
     return result;
   }
+
+  String spaceIncreaser(
+      {String text = "", int increaseValue = 1, bool ignoreSpaces = false}) {
+    List<String> words = getWords(
+      text: text,
+      ignoreSpaces: ignoreSpaces,
+    );
+    String result = "";
+    for (int i = 0; i < words.length; i++) {
+      result += words[i];
+      if (i != words.length - 1) {
+        for (int j = 0; j < increaseValue + 1; j++) {
+          result += " ";
+        }
+      }
+    }
+    return result;
+  }
 }
 
 class CustomDialogs {

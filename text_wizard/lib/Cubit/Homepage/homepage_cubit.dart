@@ -102,14 +102,14 @@ class HomepageCubit extends Cubit<HomepageStates> {
     HomepageElement(
       pageName: "Space\nReplacer",
       pageWidget: const SpaceReplacerPage(),
-      pageIcon: Icons.emoji_emotions,
-      pageColor: Colors.teal.shade800,
+      pageIcon: Icons.space_bar,
+      pageColor: Colors.red.shade800,
     ),
     HomepageElement(
       pageName: "Space\nIncreaser",
       pageWidget: const SpaceIncreaserPage(),
-      pageIcon: Icons.emoji_emotions,
-      pageColor: Colors.teal.shade800,
+      pageIcon: Icons.format_line_spacing_rounded,
+      pageColor: Colors.pink.shade800,
     ),
     HomepageElement(
       pageName: "Text\nSorter",
@@ -138,8 +138,8 @@ class HomepageCubit extends Cubit<HomepageStates> {
     HomepageElement(
       pageName: "Text\nReplacer",
       pageWidget: const TextReplacerPage(),
-      pageIcon: Icons.emoji_emotions,
-      pageColor: Colors.teal.shade800,
+      pageIcon: Icons.find_replace_rounded,
+      pageColor: Colors.lightBlue.shade800,
     ),
     HomepageElement(
       pageName: "Unicode\nConverter",
