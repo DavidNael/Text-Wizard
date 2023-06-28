@@ -578,6 +578,20 @@ class TextUtilities {
     }
     return result;
   }
+
+  String replaceText({
+    String text = "",
+    String key = "",
+    String newKey = "",
+    bool caseSensitive = false,
+  }) {
+    String result = "";
+
+    RegExp regex = RegExp(key, caseSensitive: caseSensitive);
+    result = text.replaceAll(regex, newKey);
+
+    return result;
+  }
 }
 
 class CustomDialogs {
