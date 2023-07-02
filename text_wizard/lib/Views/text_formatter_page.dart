@@ -19,13 +19,20 @@ class TextFormatterPage extends StatelessWidget {
     TextEditingController suffixTextController = TextEditingController();
     TextEditingController inputTextController = TextEditingController();
     TextEditingController outputTextController = TextEditingController();
-
+    final cubit = TextFormatterCubit.getCubit(context);
+    final textUtilities = TextUtilities();
     return BlocConsumer<TextFormatterCubit, TextFormatterState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is TextFormatterOptionChange) {
+          outputTextController.text =
+              cubit.textFormat(text: inputTextController.text);
+        }
+      },
       builder: (context, state) {
-        final cubit = TextFormatterCubit.getCubit(context);
-        final textUtilities = TextUtilities();
-        inputTextController.addListener(() {});
+        inputTextController.addListener(() {
+          outputTextController.text =
+              cubit.textFormat(text: inputTextController.text);
+        });
         return Scaffold(
           backgroundColor: backgroundColor,
           body: GestureDetector(

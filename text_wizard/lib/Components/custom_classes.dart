@@ -13,7 +13,6 @@ import 'package:tex_wiz/Constants/nouns.dart';
 import 'package:tex_wiz/Constants/possessives.dart';
 import 'package:tex_wiz/Constants/verbs.dart';
 import 'package:translator/translator.dart';
-
 import '../Constants/names.dart';
 
 class TextUtilities {
@@ -609,6 +608,42 @@ class TextUtilities {
       }
     }
     return result;
+  }
+
+  bool isAlphabetical(int char) {
+    final lowerChar = String.fromCharCode(char).toLowerCase();
+    return (lowerChar.codeUnitAt(0) >= 'a'.codeUnitAt(0) &&
+        lowerChar.codeUnitAt(0) <= 'z'.codeUnitAt(0));
+  }
+
+  bool isNumber(int char) {
+    final lowerChar = String.fromCharCode(char).toLowerCase();
+    return (lowerChar.codeUnitAt(0) >= '0'.codeUnitAt(0) &&
+        lowerChar.codeUnitAt(0) <= '9'.codeUnitAt(0));
+  }
+
+  String formatText({String text = "", int option = 0}) {
+    switch (option) {
+      case 0:
+        {
+          final boldText = StringBuffer();
+          for (var char in text.runes) {
+            if (isAlphabetical(char)) {
+              boldText.write(String.fromCharCode(0x1D5D4 +
+                  char -
+                  'a'.runes.first)); // Convert to bold Unicode representation
+            } else if (isNumber(char)) {
+              boldText.write(String.fromCharCode(0x1D7CE +
+                  char -
+                  '0'.runes.first)); // Convert to bold Unicode representation
+            } else {
+              boldText.write(String.fromCharCode(char));
+            }
+          }
+          return boldText.toString();
+        }
+    }
+    return text;
   }
 }
 
