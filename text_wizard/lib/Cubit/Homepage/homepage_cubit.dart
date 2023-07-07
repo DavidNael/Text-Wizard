@@ -114,14 +114,14 @@ class HomepageCubit extends Cubit<HomepageStates> {
     HomepageElement(
       pageName: "Text\nSorter",
       pageWidget: const TextSorterPage(),
-      pageIcon: Icons.emoji_emotions,
+      pageIcon: Icons.sort,
       pageColor: Colors.teal.shade800,
     ),
     HomepageElement(
       pageName: "Text\nRandomizer",
       pageWidget: const TextRandomizerPage(),
-      pageIcon: Icons.emoji_emotions,
-      pageColor: Colors.teal.shade800,
+      pageIcon: Icons.shuffle_rounded,
+      pageColor: Colors.green.shade500,
     ),
     HomepageElement(
       pageName: "Text\nFormatter",

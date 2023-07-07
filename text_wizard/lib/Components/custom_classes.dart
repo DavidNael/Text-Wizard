@@ -296,7 +296,6 @@ class TextUtilities {
     if (ignoreSpaces) {
       words.removeWhere((word) => word.isEmpty);
     }
-    print(words);
     return words;
   }
 
@@ -661,6 +660,31 @@ class TextUtilities {
       getLines: true,
     );
     words.sort();
+    String result = "";
+    for (int i = 0; i < words.length; i++) {
+      if (ignoreNewLines) {
+        result += "${words[i]} ";
+      } else if (ignoreSpaces) {
+        final newWords = words[i].replaceAll(RegExp(r'\s+'), ' ').trim();
+        result += "$newWords\n";
+      } else {
+        result += "${words[i]}\n";
+      }
+    }
+    return result;
+  }
+  String textRandomizer({
+    String text = "",
+    bool ignoreSpaces = false,
+    bool ignoreNewLines = false,
+  }) {
+    List<String> words = getWords(
+      text: text,
+      ignoreSpaces: ignoreSpaces,
+      ignoreNewLines: ignoreNewLines,
+      getLines: true,
+    );
+    words.shuffle();
     String result = "";
     for (int i = 0; i < words.length; i++) {
       if (ignoreNewLines) {

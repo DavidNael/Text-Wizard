@@ -197,6 +197,7 @@ class TextSorterPage extends StatelessWidget {
                                       alwaysShowHint: true,
                                       maxLines: null,
                                       keyboardType: TextInputType.multiline,
+                                    
                                     ),
                                   ),
                                 ],
