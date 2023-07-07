@@ -280,11 +280,14 @@ class TextUtilities {
     String textSplit = " ",
     bool ignoreSpaces = true,
     bool ignoreNewLines = true,
+    bool getLines = false,
   }) {
     List<String> words = [];
     // 1 Split text into words
     if (ignoreNewLines) {
       words = text.split(RegExp(r' |\n'));
+    } else if (getLines) {
+      words = text.split("\n");
     } else {
       final newString = text.replaceAll("\n", " \n ");
       words = newString.split(" ");
@@ -293,6 +296,7 @@ class TextUtilities {
     if (ignoreSpaces) {
       words.removeWhere((word) => word.isEmpty);
     }
+    print(words);
     return words;
   }
 
@@ -624,18 +628,17 @@ class TextUtilities {
 
   String formatText({String text = "", int option = 0}) {
     switch (option) {
+      // 1 Bold
       case 0:
         {
           final boldText = StringBuffer();
           for (var char in text.runes) {
             if (isAlphabetical(char)) {
-              boldText.write(String.fromCharCode(0x1D5D4 +
-                  char -
-                  'a'.runes.first)); // Convert to bold Unicode representation
+              boldText
+                  .write(String.fromCharCode(0x1D5D4 + char - 'a'.runes.first));
             } else if (isNumber(char)) {
-              boldText.write(String.fromCharCode(0x1D7CE +
-                  char -
-                  '0'.runes.first)); // Convert to bold Unicode representation
+              boldText
+                  .write(String.fromCharCode(0x1D7CE + char - '0'.runes.first));
             } else {
               boldText.write(String.fromCharCode(char));
             }
@@ -644,6 +647,32 @@ class TextUtilities {
         }
     }
     return text;
+  }
+
+  String textSorter({
+    String text = "",
+    bool ignoreSpaces = false,
+    bool ignoreNewLines = false,
+  }) {
+    List<String> words = getWords(
+      text: text,
+      ignoreSpaces: ignoreSpaces,
+      ignoreNewLines: ignoreNewLines,
+      getLines: true,
+    );
+    words.sort();
+    String result = "";
+    for (int i = 0; i < words.length; i++) {
+      if (ignoreNewLines) {
+        result += "${words[i]} ";
+      } else if (ignoreSpaces) {
+        final newWords = words[i].replaceAll(RegExp(r'\s+'), ' ').trim();
+        result += "$newWords\n";
+      } else {
+        result += "${words[i]}\n";
+      }
+    }
+    return result;
   }
 }
 
