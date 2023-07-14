@@ -757,6 +757,39 @@ class TextUtilities {
     }
     return result;
   }
+
+  String textWrapper({
+    String text = "",
+    String prefix = "",
+    String suffix = "",
+    bool ignoreSpaces = false,
+    bool ignoreNewLines = false,
+  }) {
+    List<String> words = getWords(
+      text: text,
+      ignoreSpaces: ignoreSpaces,
+      getLines: ignoreNewLines,
+    );
+    String result = "";
+
+    for (int i = 0; i < words.length; i++) {
+      if (words[i] == "\n") {
+        result += "\n";
+        continue;
+      }
+      if (ignoreNewLines) {
+        if (ignoreSpaces) {
+          final newWord = words[i].replaceAll(RegExp(r'\s+'), ' ').trim();
+          result += "$prefix$newWord$suffix\n";
+        } else {
+          result += "$prefix${words[i]}$suffix\n";
+        }
+      } else {
+        result += "$prefix${words[i]}$suffix ";
+      }
+    }
+    return result;
+  }
 }
 
 class CustomDialogs {

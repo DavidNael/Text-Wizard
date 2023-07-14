@@ -20,7 +20,7 @@ import 'package:tex_wiz/Views/text_splitter_page.dart';
 import 'package:tex_wiz/Views/text_suffixer_page.dart';
 import 'package:tex_wiz/Views/word_generator_page.dart';
 import 'package:tex_wiz/Views/word_translator_page.dart';
-import 'package:tex_wiz/Views/word_wrapper_page.dart';
+import 'package:tex_wiz/Views/text_wrapper_page.dart';
 
 import '../../Views/password_generator_page.dart';
 import '../../Views/sentence_generator_page.dart';
@@ -155,8 +155,8 @@ class HomepageCubit extends Cubit<HomepageStates> {
       pageColor: Colors.grey.shade800,
     ),
     HomepageElement(
-      pageName: "Word\nWrapper",
-      pageWidget: const WordWrapperPage(),
+      pageName: "Text\nWrapper",
+      pageWidget: const TextWrapperPage(),
       pageIcon: Icons.emoji_emotions,
       pageColor: Colors.teal.shade800,
     ),

@@ -15,7 +15,7 @@ import 'package:tex_wiz/Cubit/TextSplitter/text_splitter_cubit.dart';
 import 'package:tex_wiz/Cubit/TextSuffixer/text_suffixer_cubit.dart';
 import 'package:tex_wiz/Cubit/UnicodeConverter/unicode_converter_cubit.dart';
 import 'package:tex_wiz/Cubit/WordTranslator/word_translator_cubit.dart';
-import 'package:tex_wiz/Cubit/WordWrapper/word_wrapper_cubit.dart';
+import 'package:tex_wiz/Cubit/TextWrapper/text_wrapper_cubit.dart';
 import 'Cubit/NameGenerator/name_generator_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -107,7 +107,7 @@ class MyApp extends StatelessWidget {
           create: (context) => UnicodeConverterCubit(),
         ),
         BlocProvider(
-          create: (context) => WordWrapperCubit(),
+          create: (context) => TextWrapperCubit(),
         ),
       ],
       child: const MaterialApp(
