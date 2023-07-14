@@ -12,6 +12,7 @@ import 'package:tex_wiz/Cubit/TextRandomizer/text_randomizer_cubit.dart';
 import 'package:tex_wiz/Cubit/TextReplacer/text_replacer_cubit.dart';
 import 'package:tex_wiz/Cubit/TextSorter/text_sorter_cubit.dart';
 import 'package:tex_wiz/Cubit/TextSplitter/text_splitter_cubit.dart';
+import 'package:tex_wiz/Cubit/TextSuffixer/text_suffixer_cubit.dart';
 import 'package:tex_wiz/Cubit/UnicodeConverter/unicode_converter_cubit.dart';
 import 'package:tex_wiz/Cubit/WordTranslator/word_translator_cubit.dart';
 import 'package:tex_wiz/Cubit/WordWrapper/word_wrapper_cubit.dart';
@@ -95,6 +96,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => TextPrefixerCubit(),
+        ),
+        BlocProvider(
+          create: (context) => TextSuffixerCubit(),
         ),
         BlocProvider(
           create: (context) => TextReplacerCubit(),

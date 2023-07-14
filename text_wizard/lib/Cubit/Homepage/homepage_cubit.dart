@@ -17,6 +17,7 @@ import 'package:tex_wiz/Views/space_replacer_page.dart';
 import 'package:tex_wiz/Views/text_replacer_page.dart';
 import 'package:tex_wiz/Views/text_sorter_page.dart';
 import 'package:tex_wiz/Views/text_splitter_page.dart';
+import 'package:tex_wiz/Views/text_suffixer_page.dart';
 import 'package:tex_wiz/Views/word_generator_page.dart';
 import 'package:tex_wiz/Views/word_translator_page.dart';
 import 'package:tex_wiz/Views/word_wrapper_page.dart';
@@ -132,7 +133,13 @@ class HomepageCubit extends Cubit<HomepageStates> {
     HomepageElement(
       pageName: "Text\nPrefixer",
       pageWidget: const TextPrefixerPage(),
-      pageIcon: Icons.emoji_emotions,
+      pageIcon: Icons.navigate_before,
+      pageColor: Colors.teal.shade800,
+    ),
+    HomepageElement(
+      pageName: "Text\nSuffixer",
+      pageWidget: const TextSuffixerPage(),
+      pageIcon: Icons.navigate_next,
       pageColor: Colors.teal.shade800,
     ),
     HomepageElement(

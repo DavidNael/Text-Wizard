@@ -729,6 +729,34 @@ class TextUtilities {
     }
     return result;
   }
+
+  String textSuffixer({
+    String text = "",
+    String suffix = "",
+    bool ignoreSpaces = false,
+    bool ignoreNewLines = false,
+  }) {
+    List<String> words = getWords(
+      text: text,
+      ignoreSpaces: ignoreSpaces,
+      getLines: ignoreNewLines,
+    );
+    String result = "";
+
+    for (int i = 0; i < words.length; i++) {
+      if (ignoreNewLines) {
+        if (ignoreSpaces) {
+          final newWord = words[i].replaceAll(RegExp(r'\s+'), ' ').trim();
+          result += "$newWord$suffix\n";
+        } else {
+          result += "${words[i]}$suffix\n";
+        }
+      } else {
+        result += "${words[i]}$suffix ";
+      }
+    }
+    return result;
+  }
 }
 
 class CustomDialogs {
