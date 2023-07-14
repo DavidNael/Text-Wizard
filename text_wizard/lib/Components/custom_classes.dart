@@ -278,8 +278,8 @@ class TextUtilities {
   List<String> getWords({
     required String text,
     String textSplit = " ",
-    bool ignoreSpaces = true,
-    bool ignoreNewLines = true,
+    bool ignoreSpaces = false,
+    bool ignoreNewLines = false,
     bool getLines = false,
   }) {
     List<String> words = [];
@@ -288,6 +288,7 @@ class TextUtilities {
       words = text.split(RegExp(r' |\n'));
     } else if (getLines) {
       words = text.split("\n");
+      print(words);
     } else {
       final newString = text.replaceAll("\n", " \n ");
       words = newString.split(" ");
@@ -673,6 +674,7 @@ class TextUtilities {
     }
     return result;
   }
+
   String textRandomizer({
     String text = "",
     bool ignoreSpaces = false,
@@ -694,6 +696,35 @@ class TextUtilities {
         result += "$newWords\n";
       } else {
         result += "${words[i]}\n";
+      }
+    }
+    return result;
+  }
+
+  String textPrefixer({
+    String text = "",
+    String prefix = "",
+    bool ignoreSpaces = false,
+    bool ignoreNewLines = false,
+  }) {
+    List<String> words = getWords(
+      text: text,
+      ignoreSpaces: ignoreSpaces,
+      getLines: ignoreNewLines,
+    );
+    // print(words);
+    String result = "";
+
+    for (int i = 0; i < words.length; i++) {
+      if (ignoreNewLines) {
+        if (ignoreSpaces) {
+          final newWord = words[i].replaceAll(RegExp(r'\s+'), ' ').trim();
+          result += "$prefix$newWord\n";
+        } else {
+          result += "$prefix${words[i]}\n";
+        }
+      } else {
+        result += "$prefix${words[i]} ";
       }
     }
     return result;
