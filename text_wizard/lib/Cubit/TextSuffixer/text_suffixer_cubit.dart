@@ -22,8 +22,7 @@ class TextSuffixerCubit extends Cubit<TextSuffixerState> {
     if (prefixTextController.text.isEmpty || inputTextController.text.isEmpty) {
       return inputTextController.text;
     } else {
-      TextUtilities textUtilities = TextUtilities();
-      return textUtilities.textSuffixer(
+      return TextUtilities.textSuffixer(
         suffix: prefixTextController.text,
         text: inputTextController.text,
         ignoreSpaces: options['ignoreSpaces']!,

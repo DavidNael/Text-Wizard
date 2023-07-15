@@ -16,7 +16,6 @@ class TextRandomizerPage extends StatelessWidget {
     TextEditingController inputTextController = TextEditingController();
     TextEditingController outputTextController = TextEditingController();
     final cubit = TextRandomizerCubit.getCubit(context);
-    final textUtilities = TextUtilities();
 
     return BlocConsumer<TextRandomizerCubit, TextRandomizerState>(
       listener: (context, state) {
@@ -235,7 +234,7 @@ class TextRandomizerPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.copyToClipboard(
+                                            TextUtilities.copyToClipboard(
                                               text: outputTextController.text,
                                             );
                                           },
@@ -250,7 +249,7 @@ class TextRandomizerPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.shareText(
+                                            TextUtilities.shareText(
                                               text: outputTextController.text,
                                             );
                                           },

@@ -17,9 +17,8 @@ class TextReplacerCubit extends Cubit<TextReplacerState> {
     String key = "",
     String newKey = "",
   }) {
-    TextUtilities textUtilities = TextUtilities();
     if (text.isNotEmpty && newKey.isNotEmpty) {
-      return textUtilities.replaceText(
+      return TextUtilities.replaceText(
         text: text,
         key: key,
         newKey: newKey,

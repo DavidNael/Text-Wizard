@@ -22,10 +22,10 @@ class TextRemoverCubit extends Cubit<TextRemoverState> {
     String text = "",
     String keyword = "",
   }) {
-    TextUtilities textUtilities = TextUtilities();
     String result = text;
-    if (text.isNotEmpty && keyword.isNotEmpty) {
-      result = textUtilities.textRemover(
+    print("Test bef: $result");
+    if (text.isNotEmpty ) {
+      result = TextUtilities.textRemover(
         text: text,
         key: keyword,
         caseSensitive: options['caseSensitive']!,
@@ -34,6 +34,7 @@ class TextRemoverCubit extends Cubit<TextRemoverState> {
         ignoreNewLines: options['ignoreNewLines']!,
       );
     }
+    print("Test after: $result");
     return result;
   }
 }

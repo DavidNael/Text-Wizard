@@ -29,8 +29,7 @@ class WordGeneratorCubit extends Cubit<WordGeneratorState> {
     String endsWith = "",
   }) {
     emit(WordGeneratorGeneratingWords());
-    TextUtilities textutils = TextUtilities();
-    words = textutils.wordGenerator(
+    words = TextUtilities.wordGenerator(
       startWith: startWith,
       endsWith: endsWith,
       wordCount: wordCountSlider.toInt(),

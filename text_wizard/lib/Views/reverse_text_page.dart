@@ -27,7 +27,6 @@ class ReverseTextPage extends StatelessWidget {
       },
       builder: (context, state) {
         final cubit = ReverseTextCubit.getCubit(context);
-        final textUtilities = TextUtilities();
         inputTextController.addListener(() {
           outputTextController.text = cubit.reverseText(
             text: inputTextController.text,
@@ -253,7 +252,7 @@ class ReverseTextPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.copyToClipboard(
+                                            TextUtilities.copyToClipboard(
                                               text: outputTextController.text,
                                             );
                                           },
@@ -268,7 +267,7 @@ class ReverseTextPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.shareText(
+                                            TextUtilities.shareText(
                                               text: outputTextController.text,
                                             );
                                           },

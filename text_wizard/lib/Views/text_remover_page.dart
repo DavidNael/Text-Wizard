@@ -17,7 +17,6 @@ class TextRemoverPage extends StatelessWidget {
     TextEditingController inputTextController = TextEditingController();
     TextEditingController outputTextController = TextEditingController();
     final cubit = TextRemoverCubit.getCubit(context);
-    final textUtilities = TextUtilities();
     return BlocConsumer<TextRemoverCubit, TextRemoverState>(
       listener: (context, state) {
         if (state is TextRemoverOptionChange) {
@@ -313,7 +312,7 @@ class TextRemoverPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.copyToClipboard(
+                                            TextUtilities.copyToClipboard(
                                               text: outputTextController.text,
                                             );
                                           },
@@ -328,7 +327,7 @@ class TextRemoverPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.shareText(
+                                            TextUtilities.shareText(
                                               text: outputTextController.text,
                                             );
                                           },

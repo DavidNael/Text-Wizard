@@ -16,8 +16,6 @@ class TextSorterPage extends StatelessWidget {
     TextEditingController inputTextController = TextEditingController();
     TextEditingController outputTextController = TextEditingController();
     final cubit = TextSorterCubit.getCubit(context);
-    final textUtilities = TextUtilities();
-
     return BlocConsumer<TextSorterCubit, TextSorterState>(
       listener: (context, state) {
         if (state is TextSorterOptionChange) {
@@ -236,7 +234,7 @@ class TextSorterPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.copyToClipboard(
+                                            TextUtilities.copyToClipboard(
                                               text: outputTextController.text,
                                             );
                                           },
@@ -251,7 +249,7 @@ class TextSorterPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.shareText(
+                                            TextUtilities.shareText(
                                               text: outputTextController.text,
                                             );
                                           },

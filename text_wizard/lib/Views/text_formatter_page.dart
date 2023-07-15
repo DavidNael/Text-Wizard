@@ -20,7 +20,6 @@ class TextFormatterPage extends StatelessWidget {
     TextEditingController inputTextController = TextEditingController();
     TextEditingController outputTextController = TextEditingController();
     final cubit = TextFormatterCubit.getCubit(context);
-    final textUtilities = TextUtilities();
     return BlocConsumer<TextFormatterCubit, TextFormatterState>(
       listener: (context, state) {
         if (state is TextFormatterOptionChange) {
@@ -316,7 +315,7 @@ class TextFormatterPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.copyToClipboard(
+                                            TextUtilities.copyToClipboard(
                                               text: outputTextController.text,
                                             );
                                           },
@@ -331,7 +330,7 @@ class TextFormatterPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.shareText(
+                                            TextUtilities.shareText(
                                               text: outputTextController.text,
                                             );
                                           },

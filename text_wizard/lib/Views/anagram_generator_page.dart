@@ -43,7 +43,6 @@ class AnagramGeneratorPage extends StatelessWidget {
       },
       builder: (context, state) {
         final cubit = AnagramGeneratorCubit.getCubit(context);
-        final textUtilities = TextUtilities();
         return Scaffold(
           backgroundColor: backgroundColor,
           body: CustomScrollView(
@@ -100,7 +99,7 @@ class AnagramGeneratorPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.copyToClipboard(
+                                            TextUtilities.copyToClipboard(
                                               text: cubit.anagrams.join("\n"),
                                             );
                                           },
@@ -115,7 +114,7 @@ class AnagramGeneratorPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.shareText(
+                                            TextUtilities.shareText(
                                               text: cubit.anagrams.join("\n"),
                                             );
                                           },
@@ -140,7 +139,7 @@ class AnagramGeneratorPage extends StatelessWidget {
                                               text: cubit.anagrams[index],
                                               fontSize: 20,
                                               onPressed: () {
-                                                textUtilities.copyToClipboard(
+                                                TextUtilities.copyToClipboard(
                                                   text: cubit.anagrams[index],
                                                 );
                                               },

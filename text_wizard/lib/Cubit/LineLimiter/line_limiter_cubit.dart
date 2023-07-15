@@ -19,8 +19,7 @@ class LineLimiterCubit extends Cubit<LineLimiterState> {
   }
 
   String limitLine({String text = ""}) {
-    TextUtilities textUtilities = TextUtilities();
-    return textUtilities.lineLimiter(
+    return TextUtilities.lineLimiter(
       text: text,
       limit: lineMax.toInt(),
       shouldCutWord: shouldCutWord,

@@ -22,8 +22,7 @@ class TextPrefixerCubit extends Cubit<TextPrefixerState> {
     if (prefixTextController.text.isEmpty || inputTextController.text.isEmpty) {
       return inputTextController.text;
     } else {
-      TextUtilities textUtilities = TextUtilities();
-      return textUtilities.textPrefixer(
+      return TextUtilities.textPrefixer(
         prefix: prefixTextController.text,
         text: inputTextController.text,
         ignoreSpaces: options['ignoreSpaces']!,

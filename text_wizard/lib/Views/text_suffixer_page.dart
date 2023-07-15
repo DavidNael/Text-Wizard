@@ -14,7 +14,6 @@ class TextSuffixerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = TextSuffixerCubit.getCubit(context);
-    final textUtilities = TextUtilities();
     return BlocConsumer<TextSuffixerCubit, TextSuffixerState>(
       listener: (context, state) {
         if (state is TextSuffixerOptionChange) {
@@ -258,7 +257,7 @@ class TextSuffixerPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.copyToClipboard(
+                                            TextUtilities.copyToClipboard(
                                               text: cubit
                                                   .outputTextController.text,
                                             );
@@ -274,7 +273,7 @@ class TextSuffixerPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.shareText(
+                                            TextUtilities.shareText(
                                               text: cubit
                                                   .outputTextController.text,
                                             );

@@ -21,7 +21,6 @@ class TextSplitterPage extends StatelessWidget {
     TextEditingController outputTextController = TextEditingController();
 
     final cubit = TextSplitterCubit.getCubit(context);
-    final textUtilities = TextUtilities();
     return BlocConsumer<TextSplitterCubit, TextSplitterState>(
       listener: (context, state) {
         if (state is TextSplitterOptionChange) {
@@ -459,7 +458,7 @@ class TextSplitterPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.copyToClipboard(
+                                            TextUtilities.copyToClipboard(
                                               text: outputTextController.text,
                                             );
                                           },
@@ -474,7 +473,7 @@ class TextSplitterPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.shareText(
+                                            TextUtilities.shareText(
                                               text: outputTextController.text,
                                             );
                                           },

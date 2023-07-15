@@ -18,9 +18,8 @@ class TextRandomizerCubit extends Cubit<TextRandomizerState> {
   String textRandomizer({
     String text = '',
   }) {
-    TextUtilities textUtilities = TextUtilities();
     if (text.isNotEmpty) {
-      return textUtilities.textRandomizer(
+      return TextUtilities.textRandomizer(
         text: text,
         ignoreSpaces: options['ignoreSpaces']!,
         ignoreNewLines: options['ignoreNewLines']!,

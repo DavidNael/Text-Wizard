@@ -14,7 +14,6 @@ class TextWrapperPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = TextWrapperCubit.getCubit(context);
-    final textUtilities = TextUtilities();
     return BlocConsumer<TextWrapperCubit, TextWrapperState>(
       listener: (context, state) {
         if (state is TextWrapperOptionChange) {
@@ -300,7 +299,7 @@ class TextWrapperPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.copyToClipboard(
+                                            TextUtilities.copyToClipboard(
                                               text: cubit
                                                   .outputTextController.text,
                                             );
@@ -316,7 +315,7 @@ class TextWrapperPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.shareText(
+                                            TextUtilities.shareText(
                                               text: cubit
                                                   .outputTextController.text,
                                             );

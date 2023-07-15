@@ -17,7 +17,6 @@ class SpaceIncreaserPage extends StatelessWidget {
     TextEditingController outputTextController = TextEditingController();
 
     final cubit = SpaceIncreaserCubit.getCubit(context);
-    final textUtilities = TextUtilities();
     return BlocConsumer<SpaceIncreaserCubit, SpaceIncreaserState>(
       listener: (context, state) {
         if (state is SpaceIncreaserOptionChange) {
@@ -220,7 +219,7 @@ class SpaceIncreaserPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.copyToClipboard(
+                                            TextUtilities.copyToClipboard(
                                               text: outputTextController.text,
                                             );
                                           },
@@ -235,7 +234,7 @@ class SpaceIncreaserPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.shareText(
+                                            TextUtilities.shareText(
                                               text: outputTextController.text,
                                             );
                                           },

@@ -15,18 +15,18 @@ import 'package:tex_wiz/Constants/verbs.dart';
 import 'package:translator/translator.dart';
 import '../Constants/names.dart';
 
-class TextUtilities {
-  // 1 Singelton class
-  static final TextUtilities _instance = TextUtilities._internal();
+abstract class TextUtilities {
+  // // 1 Singelton class
+  // static final TextUtilities _instance = TextUtilities._internal();
 
-  factory TextUtilities() {
-    return _instance;
-  }
+  // factory TextUtilities() {
+  //   return _instance;
+  // }
 
-  TextUtilities._internal();
+  // TextUtilities._internal();
 
   // 1 Functions
-  List<String> wordGenerator({
+  static List<String> wordGenerator({
     String startWith = "",
     String endsWith = "",
     int wordCount = 1,
@@ -62,7 +62,7 @@ class TextUtilities {
     return results;
   }
 
-  String sentenceGenerator({
+  static String sentenceGenerator({
     int wordType = 0,
     int sentenceLength = 1,
     int sentenceLines = 1,
@@ -120,7 +120,7 @@ class TextUtilities {
     return result;
   }
 
-  String passwordGenerator({
+  static String passwordGenerator({
     bool includeNumbers = false,
     bool includeCapitalLetters = false,
     bool includeSymbols = false,
@@ -149,7 +149,7 @@ class TextUtilities {
     return sb.toString();
   }
 
-  List<String> nameGenerator({
+  static List<String> nameGenerator({
     String startWith = "",
     String endsWith = "",
     int nameCount = 1,
@@ -183,7 +183,7 @@ class TextUtilities {
     return results;
   }
 
-  List<String> filterWords(
+  static List<String> filterWords(
       {required int wordType, required bool isSafeSearch}) {
     List<String> words = [];
     // 1 Filter words based on wordType and Safe Word Search conditions
@@ -217,7 +217,7 @@ class TextUtilities {
     return words;
   }
 
-  Future<String> translateText({
+  static Future<String> translateText({
     String text = "",
     String inputLanguage = 'auto',
     String outputLanguage = 'en',
@@ -238,7 +238,7 @@ class TextUtilities {
     }
   }
 
-  void copyToClipboard({String text = ""}) {
+  static void copyToClipboard({String text = ""}) {
     if (text.isEmpty) {
       Fluttertoast.showToast(
         msg: "No Words to copy.",
@@ -263,7 +263,7 @@ class TextUtilities {
     );
   }
 
-  void shareText({String text = ""}) {
+  static void shareText({String text = ""}) {
     text.isEmpty
         ? Fluttertoast.showToast(
             msg: "No Words to share.",
@@ -275,32 +275,34 @@ class TextUtilities {
         : Share.share(text);
   }
 
-  List<String> getWords({
+  static List<String> getWords({
     required String text,
     String textSplit = " ",
+    bool sentenceMode = false,
     bool ignoreSpaces = false,
     bool ignoreNewLines = false,
-    bool getLines = false,
   }) {
-    List<String> words = [];
-    // 1 Split text into words
-    if (ignoreNewLines) {
-      words = text.split(RegExp(r' |\n'));
-    } else if (getLines) {
-      words = text.split("\n");
-      print(words);
-    } else {
-      final newString = text.replaceAll("\n", " \n ");
-      words = newString.split(" ");
-    }
-    // 2 Remove empty words
+    List<String> textList = [];
+    // 1 Remove extra spaces
+    String newText = text;
     if (ignoreSpaces) {
-      words.removeWhere((word) => word.isEmpty);
+      newText = text.replaceAll(RegExp(r'[^\S\n]+'), ' ');
     }
-    return words;
+    // 2 Remove new lines
+    if (ignoreNewLines) {
+      newText = newText.replaceAll("\n", " ");
+    }
+
+    // 3 get words from text
+    if (sentenceMode) {
+      textList = newText.split("\n");
+    } else {
+      textList = newText.split(textSplit);
+    }
+    return textList;
   }
 
-  String textSplitter({
+  static String textSplitter({
     required String text,
     String replaceWithText = "\n",
     String textPrefix = "",
@@ -314,7 +316,7 @@ class TextUtilities {
     return words.join(replaceWithText);
   }
 
-  String duplicateRemover({
+  static String duplicateRemover({
     required String text,
     double wordsToKeep = 1,
   }) {
@@ -343,7 +345,7 @@ class TextUtilities {
     return output.join(" ");
   }
 
-  String caseConverter({
+  static String caseConverter({
     String text = "",
     int inputCaseType = 0,
     int outputCaseType = 1,
@@ -486,7 +488,7 @@ class TextUtilities {
     return result;
   }
 
-  String lineLimiter({
+  static String lineLimiter({
     String text = "",
     int limit = 10,
     bool shouldCutWord = false,
@@ -533,7 +535,7 @@ class TextUtilities {
     return result;
   }
 
-  String reverseText({
+  static String reverseText({
     String text = "",
     bool reverseCharacters = false,
     bool ignoreSpaces = true,
@@ -556,7 +558,7 @@ class TextUtilities {
     return result;
   }
 
-  String textRemover({
+  static String textRemover({
     String text = "",
     String key = "",
     bool caseSensitive = false,
@@ -569,6 +571,7 @@ class TextUtilities {
       ignoreSpaces: ignoreSpaces,
       ignoreNewLines: ignoreNewLines,
     );
+    if (key.isEmpty) return words.join(' ');
     String result = "";
     String currentKey = caseSensitive ? key : key.toLowerCase();
     for (int i = 0; i < words.length; i++) {
@@ -582,7 +585,7 @@ class TextUtilities {
     return result;
   }
 
-  String replaceText({
+  static String replaceText({
     String text = "",
     String key = "",
     String newKey = "",
@@ -596,7 +599,7 @@ class TextUtilities {
     return result;
   }
 
-  String spaceIncreaser(
+  static String spaceIncreaser(
       {String text = "", int increaseValue = 1, bool ignoreSpaces = false}) {
     List<String> words = getWords(
       text: text,
@@ -614,19 +617,19 @@ class TextUtilities {
     return result;
   }
 
-  bool isAlphabetical(int char) {
+  static bool isAlphabetical(int char) {
     final lowerChar = String.fromCharCode(char).toLowerCase();
     return (lowerChar.codeUnitAt(0) >= 'a'.codeUnitAt(0) &&
         lowerChar.codeUnitAt(0) <= 'z'.codeUnitAt(0));
   }
 
-  bool isNumber(int char) {
+  static bool isNumber(int char) {
     final lowerChar = String.fromCharCode(char).toLowerCase();
     return (lowerChar.codeUnitAt(0) >= '0'.codeUnitAt(0) &&
         lowerChar.codeUnitAt(0) <= '9'.codeUnitAt(0));
   }
 
-  String formatText({String text = "", int option = 0}) {
+  static String formatText({String text = "", int option = 0}) {
     switch (option) {
       // 1 Bold
       case 0:
@@ -649,16 +652,17 @@ class TextUtilities {
     return text;
   }
 
-  String textSorter({
+  static String textSorter({
     String text = "",
     bool ignoreSpaces = false,
     bool ignoreNewLines = false,
+    bool sentenceMode = false,
   }) {
     List<String> words = getWords(
       text: text,
       ignoreSpaces: ignoreSpaces,
       ignoreNewLines: ignoreNewLines,
-      getLines: true,
+      sentenceMode: sentenceMode,
     );
     words.sort();
     String result = "";
@@ -675,16 +679,17 @@ class TextUtilities {
     return result;
   }
 
-  String textRandomizer({
+  static String textRandomizer({
     String text = "",
     bool ignoreSpaces = false,
     bool ignoreNewLines = false,
+    bool sentenceMode = false,
   }) {
     List<String> words = getWords(
       text: text,
       ignoreSpaces: ignoreSpaces,
       ignoreNewLines: ignoreNewLines,
-      getLines: true,
+      sentenceMode: sentenceMode,
     );
     words.shuffle();
     String result = "";
@@ -701,16 +706,18 @@ class TextUtilities {
     return result;
   }
 
-  String textPrefixer({
+  static String textPrefixer({
     String text = "",
     String prefix = "",
     bool ignoreSpaces = false,
     bool ignoreNewLines = false,
+    bool sentenceMode = false,
   }) {
     List<String> words = getWords(
       text: text,
       ignoreSpaces: ignoreSpaces,
-      getLines: ignoreNewLines,
+      ignoreNewLines: ignoreNewLines,
+      sentenceMode: sentenceMode,
     );
     // print(words);
     String result = "";
@@ -730,16 +737,18 @@ class TextUtilities {
     return result;
   }
 
-  String textSuffixer({
+  static String textSuffixer({
     String text = "",
     String suffix = "",
     bool ignoreSpaces = false,
     bool ignoreNewLines = false,
+    bool sentenceMode = false,
   }) {
     List<String> words = getWords(
       text: text,
       ignoreSpaces: ignoreSpaces,
-      getLines: ignoreNewLines,
+      ignoreNewLines: ignoreNewLines,
+      sentenceMode: sentenceMode,
     );
     String result = "";
 
@@ -758,17 +767,19 @@ class TextUtilities {
     return result;
   }
 
-  String textWrapper({
+  static String textWrapper({
     String text = "",
     String prefix = "",
     String suffix = "",
     bool ignoreSpaces = false,
     bool ignoreNewLines = false,
+    bool sentenceMode = false,
   }) {
     List<String> words = getWords(
       text: text,
       ignoreSpaces: ignoreSpaces,
-      getLines: ignoreNewLines,
+      ignoreNewLines: ignoreNewLines,
+      sentenceMode: sentenceMode,
     );
     String result = "";
 

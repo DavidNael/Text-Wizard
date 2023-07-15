@@ -18,7 +18,6 @@ class SpaceReplacerPage extends StatelessWidget {
     TextEditingController outputTextController = TextEditingController();
 
     final cubit = SpaceReplacerCubit.getCubit(context);
-    final textUtilities = TextUtilities();
     return BlocConsumer<SpaceReplacerCubit, SpaceReplacerState>(
       listener: (context, state) {
         if (state is SpaceReplacerOptionChange) {
@@ -232,7 +231,7 @@ class SpaceReplacerPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.copyToClipboard(
+                                            TextUtilities.copyToClipboard(
                                               text: outputTextController.text,
                                             );
                                           },
@@ -247,7 +246,7 @@ class SpaceReplacerPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.shareText(
+                                            TextUtilities.shareText(
                                               text: outputTextController.text,
                                             );
                                           },

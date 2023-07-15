@@ -20,7 +20,6 @@ class WordTranslatorPage extends StatelessWidget {
     const Duration debounceDelay = Duration(milliseconds: 300);
     Timer? debounceTimer;
     final cubit = WordTranslatorCubit.getCubit(context);
-    final textUtilities = TextUtilities();
     return BlocConsumer<WordTranslatorCubit, WordTranslatorState>(
       listener: (context, state) {
         if (state is WordTranslatorOptionChange) {
@@ -102,7 +101,7 @@ class WordTranslatorPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.copyToClipboard(
+                                            TextUtilities.copyToClipboard(
                                               text: outputTextController.text,
                                             );
                                           },
@@ -117,7 +116,7 @@ class WordTranslatorPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.shareText(
+                                            TextUtilities.shareText(
                                               text: outputTextController.text,
                                             );
                                           },

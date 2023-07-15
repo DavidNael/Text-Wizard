@@ -17,9 +17,8 @@ class TextSorterCubit extends Cubit<TextSorterState> {
   String textSorter({
     String text = '',
   }) {
-    TextUtilities textUtilities = TextUtilities();
     if (text.isNotEmpty) {
-      return textUtilities.textSorter(
+      return TextUtilities.textSorter(
         text: text,
         ignoreSpaces: options['ignoreSpaces']!,
         ignoreNewLines: options['ignoreNewLines']!,

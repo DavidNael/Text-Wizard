@@ -25,7 +25,6 @@ class CaseConverterPage extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        final textUtilities = TextUtilities();
         inputTextController.addListener(() {
           outputTextController.text =
               cubit.convertCase(text: inputTextController.text);
@@ -202,7 +201,7 @@ class CaseConverterPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.copyToClipboard(
+                                            TextUtilities.copyToClipboard(
                                               text: outputTextController.text,
                                             );
                                           },
@@ -217,7 +216,7 @@ class CaseConverterPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.shareText(
+                                            TextUtilities.shareText(
                                               text: outputTextController.text,
                                             );
                                           },

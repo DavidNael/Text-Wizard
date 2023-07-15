@@ -22,9 +22,8 @@ class SpaceIncreaserCubit extends Cubit<SpaceIncreaserState> {
   String increaseSpaces({
     String text = "",
   }) {
-    TextUtilities textUtilities = TextUtilities();
     if (text.isNotEmpty) {
-      return textUtilities.spaceIncreaser(
+      return TextUtilities.spaceIncreaser(
         text: text,
         increaseValue: spaceSliderValue.toInt(),
         ignoreSpaces: ignoreSpaces,

@@ -14,8 +14,7 @@ class DuplicateRemoverCubit extends Cubit<DuplicateRemoverState> {
   }
 
   String duplicateRemover({required String text}) {
-    TextUtilities textUtil = TextUtilities();
-    return textUtil.duplicateRemover(
+    return TextUtilities.duplicateRemover(
       text: text,
       wordsToKeep: wordsToKeep,
     );

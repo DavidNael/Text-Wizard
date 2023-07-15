@@ -24,8 +24,7 @@ class TextWrapperCubit extends Cubit<TextWrapperState> {
     if (prefixTextController.text.isEmpty || inputTextController.text.isEmpty) {
       return inputTextController.text;
     } else {
-      TextUtilities textUtilities = TextUtilities();
-      return textUtilities.textWrapper(
+      return TextUtilities.textWrapper(
         prefix: prefixTextController.text,
         suffix: suffixTextController.text,
         text: inputTextController.text,

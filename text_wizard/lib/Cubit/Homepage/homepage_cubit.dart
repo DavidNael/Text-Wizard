@@ -24,7 +24,6 @@ import 'package:tex_wiz/Views/text_wrapper_page.dart';
 
 import '../../Views/password_generator_page.dart';
 import '../../Views/sentence_generator_page.dart';
-import '../../Views/unicode_converter_page.dart';
 
 class HomepageCubit extends Cubit<HomepageStates> {
   HomepageCubit() : super(HomepageInitialState());
@@ -116,7 +115,7 @@ class HomepageCubit extends Cubit<HomepageStates> {
       pageName: "Text\nSorter",
       pageWidget: const TextSorterPage(),
       pageIcon: Icons.sort,
-      pageColor: Colors.teal.shade800,
+      pageColor: Colors.amberAccent,
     ),
     HomepageElement(
       pageName: "Text\nRandomizer",
@@ -127,38 +126,33 @@ class HomepageCubit extends Cubit<HomepageStates> {
     HomepageElement(
       pageName: "Text\nFormatter",
       pageWidget: const TextFormatterPage(),
-      pageIcon: Icons.emoji_emotions,
+      pageIcon: Icons.format_bold_rounded,
       pageColor: Colors.teal.shade800,
     ),
     HomepageElement(
       pageName: "Text\nPrefixer",
       pageWidget: const TextPrefixerPage(),
       pageIcon: Icons.navigate_before,
-      pageColor: Colors.teal.shade800,
+      pageColor: Colors.blue.shade800,
     ),
     HomepageElement(
       pageName: "Text\nSuffixer",
       pageWidget: const TextSuffixerPage(),
       pageIcon: Icons.navigate_next,
-      pageColor: Colors.teal.shade800,
+      pageColor: Colors.red.shade800,
     ),
     HomepageElement(
       pageName: "Text\nReplacer",
       pageWidget: const TextReplacerPage(),
       pageIcon: Icons.find_replace_rounded,
-      pageColor: Colors.lightBlue.shade800,
-    ),
-    HomepageElement(
-      pageName: "Unicode\nConverter",
-      pageWidget: const UnicodeConverterPage(),
-      pageIcon: Icons.text_increase,
-      pageColor: Colors.grey.shade800,
+      pageColor: Colors.green.shade900,
     ),
     HomepageElement(
       pageName: "Text\nWrapper",
       pageWidget: const TextWrapperPage(),
-      pageIcon: Icons.emoji_emotions,
-      pageColor: Colors.teal.shade800,
+      pageIcon: Icons.navigate_before,
+      pageIcon2: Icons.navigate_next,
+      pageColor: Colors.deepPurple.shade800,
     ),
   ];
   List<HomepageElement> textAnalysisPages = [

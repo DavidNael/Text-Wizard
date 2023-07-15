@@ -43,7 +43,6 @@ class WordGeneratorPage extends StatelessWidget {
       },
       builder: (context, state) {
         final cubit = WordGeneratorCubit.getCubit(context);
-        final textUtilities = TextUtilities();
         return Scaffold(
           backgroundColor: backgroundColor,
           body: CustomScrollView(
@@ -101,7 +100,7 @@ class WordGeneratorPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.copyToClipboard(
+                                            TextUtilities.copyToClipboard(
                                               text: cubit.words.join("\n"),
                                             );
                                           },
@@ -116,7 +115,7 @@ class WordGeneratorPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.shareText(
+                                            TextUtilities.shareText(
                                               text: cubit.words.join("\n"),
                                             );
                                           },
@@ -141,7 +140,7 @@ class WordGeneratorPage extends StatelessWidget {
                                               text: cubit.words[index],
                                               fontSize: 20,
                                               onPressed: () {
-                                                textUtilities.copyToClipboard(
+                                                TextUtilities.copyToClipboard(
                                                   text: cubit.words[index],
                                                 );
                                               },

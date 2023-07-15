@@ -17,7 +17,6 @@ class SentenceGeneratorPage extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         final cubit = SentenceGeneratorCubit.getCubit(context);
-        final textUtilities = TextUtilities();
         return Scaffold(
           backgroundColor: Colors.grey.shade300,
           body: CustomScrollView(
@@ -66,7 +65,7 @@ class SentenceGeneratorPage extends StatelessWidget {
                                     alignment: Alignment.centerRight,
                                     child: IconButton(
                                       onPressed: () {
-                                        textUtilities.copyToClipboard(
+                                        TextUtilities.copyToClipboard(
                                           text: cubit.sentence,
                                         );
                                       },
@@ -81,7 +80,7 @@ class SentenceGeneratorPage extends StatelessWidget {
                                     alignment: Alignment.centerRight,
                                     child: IconButton(
                                       onPressed: () {
-                                        textUtilities.shareText(
+                                        TextUtilities.shareText(
                                           text: cubit.sentence,
                                         );
                                       },
@@ -106,7 +105,7 @@ class SentenceGeneratorPage extends StatelessWidget {
                                         text: cubit.sentence,
                                         fontSize: 20,
                                         onPressed: () {
-                                          textUtilities.copyToClipboard(
+                                          TextUtilities.copyToClipboard(
                                             text: cubit.sentence,
                                           );
                                         },

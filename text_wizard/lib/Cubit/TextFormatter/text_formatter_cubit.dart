@@ -6,9 +6,8 @@ class TextFormatterCubit extends Cubit<TextFormatterState> {
   TextFormatterCubit() : super(TextFormatterInitialState());
   static TextFormatterCubit getCubit(context) => BlocProvider.of(context);
   String textFormat({String text = ""}) {
-    TextUtilities textUtilities = TextUtilities();
     if (text.isNotEmpty) {
-      return textUtilities.formatText(text: text);
+      return TextUtilities.formatText(text: text);
     }
     return text;
   }

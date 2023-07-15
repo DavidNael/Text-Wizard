@@ -36,7 +36,7 @@ class SentenceGeneratorCubit extends Cubit<SentenceGeneratorState> {
     int sentenceLines = 5,
   }) {
     emit(SentenceGeneratorGeneratingSentence());
-    sentence = TextUtilities().sentenceGenerator(
+    sentence = TextUtilities.sentenceGenerator(
       wordType: wordType,
       sentenceLength: sentenceLength,
       sentenceLines: sentenceLines,

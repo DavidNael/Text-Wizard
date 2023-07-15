@@ -20,7 +20,6 @@ class DuplicateRemoverPage extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         final cubit = DuplicateRemoverCubit.getCubit(context);
-        final textUtilities = TextUtilities();
         inputTextController.addListener(() {
           outputTextController.text =
               cubit.duplicateRemover(text: inputTextController.text);
@@ -214,7 +213,7 @@ class DuplicateRemoverPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.copyToClipboard(
+                                            TextUtilities.copyToClipboard(
                                               text: outputTextController.text,
                                             );
                                           },
@@ -229,7 +228,7 @@ class DuplicateRemoverPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.shareText(
+                                            TextUtilities.shareText(
                                               text: outputTextController.text,
                                             );
                                           },

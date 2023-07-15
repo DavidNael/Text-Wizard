@@ -21,7 +21,7 @@ class PasswordGeneratorCubit extends Cubit<PasswordGeneratorState> {
   }
 
   void generatePassword() {
-    password = TextUtilities().passwordGenerator(
+    password = TextUtilities.passwordGenerator(
       passwordLength: passwordLengthValue.toInt(),
       includeNumbers: options[0],
       includeCapitalLetters: options[1],

@@ -104,7 +104,6 @@ class CaseConverterCubit extends Cubit<CaseConverterState> {
       ),
     ),
   ];
-  TextUtilities textUtilities = TextUtilities();
   void updateCase({int? newInputCase, int? newOutputCase}) {
     if (newInputCase != null) {
       inputCase = newInputCase;
@@ -117,7 +116,7 @@ class CaseConverterCubit extends Cubit<CaseConverterState> {
 
   String convertCase({String text = ""}) {
     emit(CaseConverterGeneratingText());
-    final newText = textUtilities.caseConverter(
+    final newText = TextUtilities.caseConverter(
       text: text,
       inputCaseType: inputCase,
       outputCaseType: outputCase,

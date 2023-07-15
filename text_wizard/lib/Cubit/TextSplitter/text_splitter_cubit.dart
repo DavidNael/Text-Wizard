@@ -15,9 +15,8 @@ class TextSplitterCubit extends Cubit<TextSplitterState> {
     String textSuffix = "",
     String textSplit = " ",
   }) {
-    TextUtilities textUtil = TextUtilities();
     emit(TextSplitterGeneratingText());
-    return textUtil.textSplitter(
+    return TextUtilities.textSplitter(
       text: text,
       textSplit: textSplit,
       replaceWithText: replaceWithText,

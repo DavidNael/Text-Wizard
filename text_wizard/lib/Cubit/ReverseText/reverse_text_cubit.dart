@@ -5,7 +5,6 @@ import 'package:tex_wiz/Cubit/ReverseText/reverse_text_state.dart';
 class ReverseTextCubit extends Cubit<ReverseTextState> {
   ReverseTextCubit() : super(ReverseTextInitialState());
   static ReverseTextCubit getCubit(context) => BlocProvider.of(context);
-  TextUtilities textUtilities = TextUtilities();
   Map<String, bool> options = {
     'reverseCharacters': false,
     'ignoreSpaces': false,
@@ -18,7 +17,7 @@ class ReverseTextCubit extends Cubit<ReverseTextState> {
 
   String reverseText({String text = ''}) {
     if (text.isNotEmpty) {
-      return textUtilities.reverseText(
+      return TextUtilities.reverseText(
         text: text,
         reverseCharacters: options['reverseCharacters']!,
         ignoreSpaces: options['ignoreSpaces']!,

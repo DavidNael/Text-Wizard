@@ -101,7 +101,6 @@ Widget customResultBox({
   double borderWidth = 0.6,
   double padding = 0,
 }) {
-  final textUtilities = TextUtilities();
   return Padding(
     padding: EdgeInsets.all(padding),
     child: Column(
@@ -125,7 +124,7 @@ Widget customResultBox({
             children: [
               IconButton(
                 onPressed: () {
-                  textUtilities.copyToClipboard(
+                  TextUtilities.copyToClipboard(
                     text: result,
                   );
                 },

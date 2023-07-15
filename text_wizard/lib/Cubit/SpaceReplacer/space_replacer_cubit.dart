@@ -10,10 +10,9 @@ class SpaceReplacerCubit extends Cubit<SpaceReplacerState> {
     String text = "",
     String newKey = " ",
   }) {
-    TextUtilities textUtilities = TextUtilities();
     if (text.isNotEmpty) {
       newKey = newKey.replaceAll("\\n", "\n");
-      return textUtilities.replaceText(
+      return TextUtilities.replaceText(
         text: text,
         key: " ",
         newKey: newKey,

@@ -25,7 +25,7 @@ class NameGeneratorCubit extends Cubit<NameGeneratorState> {
     String endsWith = "",
   }) {
     emit(NameGeneratorGeneratingWords());
-    names = TextUtilities().nameGenerator(
+    names = TextUtilities.nameGenerator(
       startWith: startWith,
       endsWith: endsWith,
       nameCount: nameCountSlider.toInt(),

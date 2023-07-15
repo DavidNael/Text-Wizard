@@ -36,7 +36,7 @@ class WordTranslatorCubit extends Cubit<WordTranslatorState> {
 
   Future<String> translateText() async {
     emit(WordTranslatorTranslatingWords());
-    final translation = TextUtilities().translateText(
+    final translation = TextUtilities.translateText(
       text: "$inputText ",
       inputLanguage: inputLanguage == "Auto Detect"
           ? 'auto'

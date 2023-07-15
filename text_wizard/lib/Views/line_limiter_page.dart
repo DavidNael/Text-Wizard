@@ -16,7 +16,6 @@ class LineLimiterPage extends StatelessWidget {
     TextEditingController inputTextController = TextEditingController();
     TextEditingController outputTextController = TextEditingController();
     final cubit = LineLimiterCubit.getCubit(context);
-    final textUtilities = TextUtilities();
     return BlocConsumer<LineLimiterCubit, LineLimiterState>(
       listener: (context, state) {
         if (state is LineLimiterOptionChange) {
@@ -217,7 +216,7 @@ class LineLimiterPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.copyToClipboard(
+                                            TextUtilities.copyToClipboard(
                                               text: outputTextController.text,
                                             );
                                           },
@@ -232,7 +231,7 @@ class LineLimiterPage extends StatelessWidget {
                                         alignment: Alignment.centerRight,
                                         child: IconButton(
                                           onPressed: () {
-                                            textUtilities.shareText(
+                                            TextUtilities.shareText(
                                               text: outputTextController.text,
                                             );
                                           },
